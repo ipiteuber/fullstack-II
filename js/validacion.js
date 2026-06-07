@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  const A = window.LinkStartAuth;
+  const V = window.LinkStartValid;
+
   document.addEventListener("DOMContentLoaded", init);
 
   function init() {
@@ -22,45 +25,39 @@
     const pwBar = document.getElementById("pw-bar");
     const pwHint = document.getElementById("pw-hint");
 
-    // No permitir fechas de nacimiento futuras
     if (campos.fechaNac) {
-      campos.fechaNac.setAttribute("max", hoyISO());
+      campos.fechaNac.setAttribute("max", window.LinkStartUtil.hoyISO());
     }
 
     const reglas = {
       nombre(v) {
-        if (esVacio(v)) return "El nombre completo es obligatorio.";
+        if (V.vacio(v)) return "El nombre completo es obligatorio.";
         if (v.trim().length < 3) return "Ingresa al menos 3 caracteres.";
         return "";
       },
       usuario(v) {
-        if (esVacio(v)) return "El nombre de usuario es obligatorio.";
+        if (V.vacio(v)) return "El nombre de usuario es obligatorio.";
         if (v.trim().length < 4) return "El usuario debe tener al menos 4 caracteres.";
         return "";
       },
       correo(v) {
-        if (esVacio(v)) return "El correo electronico es obligatorio.";
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!re.test(v.trim())) return "Ingresa un correo con formato valido.";
+        if (V.vacio(v)) return "El correo electronico es obligatorio.";
+        if (!V.correo(v)) return "Ingresa un correo con formato valido.";
         return "";
       },
       password(v) {
-        if (esVacio(v)) return "La contrasena es obligatoria.";
-        if (v.length < 6 || v.length > 18) return "Debe tener entre 6 y 18 caracteres.";
-        if (!/[0-9]/.test(v)) return "Debe incluir al menos un numero.";
-        if (!/[A-Z]/.test(v)) return "Debe incluir al menos una letra mayuscula.";
-        return "";
+        return V.password(v);
       },
       password2(v) {
-        if (esVacio(v)) return "Repite la contrasena.";
+        if (V.vacio(v)) return "Repite la contrasena.";
         if (v !== campos.password.value) return "Las contrasenas no coinciden.";
         return "";
       },
       fechaNac(v) {
-        if (esVacio(v)) return "La fecha de nacimiento es obligatoria.";
-        const edad = calcularEdad(v);
-        if (edad === null) return "Fecha invalida.";
-        if (edad < 13) return "Debes tener al menos 13 anos para registrarte.";
+        if (V.vacio(v)) return "La fecha de nacimiento es obligatoria.";
+        const ok = V.edadMinima(v, 13);
+        if (ok === null) return "Fecha invalida.";
+        if (!ok) return "Debes tener al menos 13 anos para registrarte.";
         return "";
       },
       direccion() {
@@ -99,21 +96,41 @@
 
       Object.keys(reglas).forEach(function (nombreCampo) {
         const ok = validarCampo(nombreCampo);
-        if (!ok && !primerInvalido) {
-          primerInvalido = campos[nombreCampo];
-        }
+        if (!ok && !primerInvalido) primerInvalido = campos[nombreCampo];
         if (!ok) todoOk = false;
       });
 
-      if (todoOk) {
-        mostrarExito();
-        form.reset();
-        limpiarEstados();
-        actualizarMedidor();
-      } else {
+      if (!todoOk) {
         ocultarExito();
         if (primerInvalido) primerInvalido.focus();
+        return;
       }
+
+      const res = A.registrar({
+        nombre: campos.nombre.value.trim(),
+        usuario: campos.usuario.value.trim(),
+        correo: campos.correo.value.trim(),
+        password: campos.password.value,
+        fechaNac: campos.fechaNac.value,
+        direccion: campos.direccion.value.trim(),
+      });
+
+      if (!res.ok) {
+        ocultarExito();
+        // Muestra el error en el campo correspondiente
+        if (res.error.includes("usuario")) marcarError("usuario", res.error);
+        else if (res.error.includes("correo")) marcarError("correo", res.error);
+        else mostrarMensaje(res.error, false);
+        return;
+      }
+
+      mostrarMensaje("Cuenta creada con exito. Redirigiendo al inicio de sesion...", true);
+      form.reset();
+      limpiarEstados();
+      actualizarMedidor();
+      setTimeout(function () {
+        location.href = "login.html";
+      }, 1600);
     });
 
     btnLimpiar.addEventListener("click", function () {
@@ -125,44 +142,35 @@
 
     function validarCampo(nombreCampo) {
       const input = campos[nombreCampo];
-      const valor = input.value;
-      const error = reglas[nombreCampo](valor);
-      const cajaError = document.getElementById("err-" + nombreCampo);
-
+      const error = reglas[nombreCampo](input.value);
       if (error) {
-        input.classList.add("is-invalid");
-        input.classList.remove("is-valid");
-        input.setAttribute("aria-invalid", "true");
-        if (cajaError) {
-          cajaError.textContent = error;
-          cajaError.classList.add("show");
-        }
+        marcarError(nombreCampo, error);
         return false;
       }
-
-      if (esVacio(valor) && nombreCampo === "direccion") {
+      if (V.vacio(input.value) && nombreCampo === "direccion") {
         input.classList.remove("is-invalid", "is-valid");
       } else {
         input.classList.add("is-valid");
         input.classList.remove("is-invalid");
       }
       input.setAttribute("aria-invalid", "false");
-      if (cajaError) {
-        cajaError.textContent = "";
-        cajaError.classList.remove("show");
-      }
+      const caja = document.getElementById("err-" + nombreCampo);
+      if (caja) { caja.textContent = ""; caja.classList.remove("show"); }
       return true;
+    }
+
+    function marcarError(nombreCampo, error) {
+      const input = campos[nombreCampo];
+      input.classList.add("is-invalid");
+      input.classList.remove("is-valid");
+      input.setAttribute("aria-invalid", "true");
+      const caja = document.getElementById("err-" + nombreCampo);
+      if (caja) { caja.textContent = error; caja.classList.add("show"); }
     }
 
     function actualizarMedidor() {
       const v = campos.password.value;
-      let puntos = 0;
-      if (v.length >= 6) puntos++;
-      if (v.length >= 10) puntos++;
-      if (/[0-9]/.test(v)) puntos++;
-      if (/[A-Z]/.test(v)) puntos++;
-      if (/[^A-Za-z0-9]/.test(v)) puntos++;
-
+      const puntos = V.fuerza(v);
       const niveles = [
         { w: "0%",   c: "transparent",           t: "Seguridad de la contraseña" },
         { w: "25%",  c: "var(--neon-secondary)", t: "Muy debil" },
@@ -171,7 +179,6 @@
         { w: "100%", c: "var(--neon-primary)",   t: "Fuerte" },
       ];
       const nivel = niveles[Math.min(puntos, 4)];
-
       pwBar.style.width = nivel.w;
       pwBar.style.background = nivel.c;
       pwHint.textContent = v.length ? nivel.t : niveles[0].t;
@@ -184,16 +191,13 @@
         input.classList.remove("is-invalid", "is-valid");
         input.removeAttribute("aria-invalid");
         const caja = document.getElementById("err-" + k);
-        if (caja) {
-          caja.textContent = "";
-          caja.classList.remove("show");
-        }
+        if (caja) { caja.textContent = ""; caja.classList.remove("show"); }
       });
     }
 
-    function mostrarExito() {
-      exito.textContent =
-        "Registro completado. Bienvenido a Link Start, ya eres parte del club de jugadores.";
+    function mostrarMensaje(texto, ok) {
+      exito.textContent = texto;
+      exito.classList.toggle("form-success--error", !ok);
       exito.classList.add("show");
       exito.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -201,28 +205,5 @@
     function ocultarExito() {
       exito.classList.remove("show");
     }
-  }
-
-  function esVacio(v) {
-    return v === null || v === undefined || v.trim() === "";
-  }
-
-  function hoyISO() {
-    const d = new Date();
-    const mes = String(d.getMonth() + 1).padStart(2, "0");
-    const dia = String(d.getDate()).padStart(2, "0");
-    return d.getFullYear() + "-" + mes + "-" + dia;
-  }
-
-  function calcularEdad(fechaStr) {
-    const nac = new Date(fechaStr);
-    if (isNaN(nac.getTime())) return null;
-    const hoy = new Date();
-    let edad = hoy.getFullYear() - nac.getFullYear();
-    const m = hoy.getMonth() - nac.getMonth();
-    if (m < 0 || (m === 0 && hoy.getDate() < nac.getDate())) {
-      edad--;
-    }
-    return edad;
   }
 })();
