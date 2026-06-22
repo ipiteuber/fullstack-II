@@ -1,0 +1,31 @@
+<section>
+  <h2 class="section-title">Control de inventario</h2>
+
+  <div class="guard-msg" *ngIf="!auth.esAdmin()">
+    <p>Solo los administradores pueden acceder a esta página.</p>
+    <a class="btn-neon btn-neon--primary" routerLink="/login">Ir a iniciar sesión</a>
+  </div>
+
+  <div class="ls-panel" *ngIf="auth.esAdmin()">
+    <p class="form-success show" [class.form-success--error]="esError" *ngIf="mensaje">{{ mensaje }}</p>
+
+    <table class="ls-table">
+      <thead>
+        <tr><th>Producto</th><th>Stock actual</th><th>Nuevo stock</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productos">
+          <td>
+            <div class="cart-prod">
+              <img [src]="'/' + p.img" [alt]="p.nombre" width="54" height="54">
+              <span>{{ p.nombre }}</span>
+            </div>
+          </td>
+          <td [class.stock-low]="p.stock <= 5" [class.stock-ok]="p.stock > 5">{{ p.stock }}</td>
+          <td><input class="qty-input" type="number" min="0" [value]="p.stock" #nuevo></td>
+          <td><button type="button" class="btn-mini btn-mini--ok" (click)="actualizar(p.id, nuevo.value)">Actualizar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

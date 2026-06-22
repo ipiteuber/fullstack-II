@@ -1,0 +1,25 @@
+<section class="hero">
+  <h1>Bienvenido a <span class="highlight">Link Start!</span></h1>
+  <p>
+    Somos una PYME chilena apasionada por los juegos de mesa. Descubre nuestro
+    catálogo cuidadosamente seleccionado de juegos para todos los gustos:
+    desde épicas batallas de estrategia hasta noches de risas con amigos.
+  </p>
+</section>
+
+<section>
+  <h2 class="section-title">Nuestras Categorías</h2>
+
+  <div class="categories-grid row g-4">
+    <div class="col-12 col-sm-6 col-lg-3" *ngFor="let cat of categorias">
+      <article class="category-card">
+        <img [src]="'/' + cat.img" [alt]="'Categoría ' + cat.nombre">
+        <div class="category-card-body">
+          <h3>{{ cat.nombre }}</h3>
+          <p>{{ cat.desc }}</p>
+          <a [routerLink]="['/categoria', cat.slug]" class="cta">Ver juegos &rarr;</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

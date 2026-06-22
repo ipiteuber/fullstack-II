@@ -1,0 +1,88 @@
+<section>
+  <h2 class="section-title">Pago</h2>
+
+  <!-- Si no hay sesion iniciada -->
+  <div class="guard-msg" *ngIf="!auth.estaLogueado()">
+    <p>Debes iniciar sesión para finalizar tu compra.</p>
+    <a class="btn-neon btn-neon--primary" routerLink="/login">Ir a iniciar sesión</a>
+  </div>
+
+  <ng-container *ngIf="auth.estaLogueado()">
+    <!-- Compra exitosa -->
+    <div class="ls-panel" *ngIf="ordenExito">
+      <h3>¡Pago realizado con éxito!</h3>
+      <p>Orden <strong>{{ ordenExito.id }}</strong> por <strong>{{ ordenExito.total | clp }}</strong>.</p>
+      <div class="form-actions">
+        <a class="btn-neon btn-neon--primary" routerLink="/mis-compras">Ver mis compras</a>
+        <a class="btn-neon btn-neon--ghost" routerLink="/">Seguir comprando</a>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!ordenExito">
+      <!-- Carrito vacio -->
+      <p class="empty-state" *ngIf="cart.items().length === 0">
+        No tienes productos en el carrito. <a routerLink="/">Ver catálogo</a>.
+      </p>
+
+      <div class="row g-4" *ngIf="cart.items().length > 0">
+        <!-- Resumen de la orden -->
+        <div class="col-12 col-lg-6">
+          <div class="ls-panel">
+            <h3>Resumen de tu orden</h3>
+            <table class="ls-table">
+              <thead>
+                <tr><th>Producto</th><th>Cantidad</th><th>Subtotal</th></tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cart.items()">
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ item.cant }}</td>
+                  <td>{{ item.precio * item.cant | clp }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="cart-total">Total: <strong>{{ cart.totalCLP() | clp }}</strong></p>
+          </div>
+        </div>
+
+        <!-- Formulario de pago -->
+        <div class="col-12 col-lg-6">
+          <form class="register-card" [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+            <h3>Datos de la tarjeta</h3>
+
+            <p class="form-success show form-success--error" *ngIf="mensaje">{{ mensaje }}</p>
+
+            <div class="form-field">
+              <label class="form-label" for="tarjeta">Número de tarjeta *</label>
+              <input id="tarjeta" type="text" class="form-control" formControlName="tarjeta" placeholder="16 dígitos"
+                [class.is-invalid]="f.tarjeta.invalid && f.tarjeta.touched">
+              <p class="field-error show" *ngIf="f.tarjeta.touched && f.tarjeta.errors?.['required']">!! Ingresa el número de la tarjeta.</p>
+              <p class="field-error show" *ngIf="f.tarjeta.touched && f.tarjeta.errors?.['pattern']">!! Ingresa los 16 dígitos de la tarjeta.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="vence">Vencimiento (MM/AA) *</label>
+              <input id="vence" type="text" class="form-control" formControlName="vence" placeholder="MM/AA"
+                [class.is-invalid]="f.vence.invalid && f.vence.touched">
+              <p class="field-error show" *ngIf="f.vence.touched && f.vence.errors?.['required']">!! Ingresa el vencimiento.</p>
+              <p class="field-error show" *ngIf="f.vence.touched && f.vence.errors?.['pattern']">!! Formato MM/AA.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="cvv">CVV *</label>
+              <input id="cvv" type="password" class="form-control" formControlName="cvv" placeholder="3 o 4 dígitos"
+                [class.is-invalid]="f.cvv.invalid && f.cvv.touched">
+              <p class="field-error show" *ngIf="f.cvv.touched && f.cvv.errors?.['required']">!! Ingresa el CVV.</p>
+              <p class="field-error show" *ngIf="f.cvv.touched && f.cvv.errors?.['pattern']">!! CVV de 3 o 4 dígitos.</p>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-neon btn-neon--primary">Pagar ahora</button>
+              <a class="btn-neon btn-neon--ghost" routerLink="/carrito">Volver al carrito</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

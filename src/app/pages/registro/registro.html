@@ -1,0 +1,71 @@
+<section class="form-wrap">
+  <form class="register-card" [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+    <h2 class="section-title">Crear cuenta</h2>
+
+    <p class="form-success show" [class.form-success--error]="esError" *ngIf="mensaje">{{ mensaje }}</p>
+
+    <div class="form-field">
+      <label class="form-label" for="nombre">Nombre completo *</label>
+      <input id="nombre" type="text" class="form-control" formControlName="nombre"
+        [class.is-invalid]="f.nombre.invalid && f.nombre.touched">
+      <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.['required']">!! El nombre es obligatorio.</p>
+      <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.['minlength']">!! Debe tener al menos 3 caracteres.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="usuario">Nombre de usuario *</label>
+      <input id="usuario" type="text" class="form-control" formControlName="usuario"
+        [class.is-invalid]="f.usuario.invalid && f.usuario.touched">
+      <p class="field-error show" *ngIf="f.usuario.touched && f.usuario.errors?.['required']">!! El usuario es obligatorio.</p>
+      <p class="field-error show" *ngIf="f.usuario.touched && f.usuario.errors?.['minlength']">!! Debe tener al menos 4 caracteres.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="correo">Correo electrónico *</label>
+      <input id="correo" type="email" class="form-control" formControlName="correo"
+        [class.is-invalid]="f.correo.invalid && f.correo.touched">
+      <p class="field-error show" *ngIf="f.correo.touched && f.correo.errors?.['required']">!! El correo es obligatorio.</p>
+      <p class="field-error show" *ngIf="f.correo.touched && f.correo.errors?.['email']">!! El formato del correo no es válido.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="password">Contraseña *</label>
+      <input id="password" type="password" class="form-control" formControlName="password"
+        [class.is-invalid]="f.password.invalid && f.password.touched">
+      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['required']">!! La contraseña es obligatoria.</p>
+      <p class="field-error show" *ngIf="f.password.touched && (f.password.errors?.['minlength'] || f.password.errors?.['maxlength'])">!! Debe tener entre 6 y 18 caracteres.</p>
+      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['complejidad']">!! Debe incluir al menos un número y una letra mayúscula.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="password2">Repetir contraseña *</label>
+      <input id="password2" type="password" class="form-control" formControlName="password2"
+        [class.is-invalid]="(f.password2.touched && f.password2.errors?.['required']) || (f.password2.touched && form.errors?.['noCoinciden'])">
+      <p class="field-error show" *ngIf="f.password2.touched && f.password2.errors?.['required']">!! Repite la contraseña.</p>
+      <p class="field-error show" *ngIf="f.password2.touched && form.errors?.['noCoinciden']">!! Las contraseñas no coinciden.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="fechaNac">Fecha de nacimiento *</label>
+      <input id="fechaNac" type="date" class="form-control" formControlName="fechaNac" [max]="hoy"
+        [class.is-invalid]="f.fechaNac.invalid && f.fechaNac.touched">
+      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.['required']">!! La fecha de nacimiento es obligatoria.</p>
+      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.['edadMinima']">!! Debes tener al menos 13 años para registrarte.</p>
+      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.['fechaInvalida']">!! La fecha no es válida.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label" for="direccion">Dirección de despacho (opcional)</label>
+      <input id="direccion" type="text" class="form-control" formControlName="direccion">
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-neon btn-neon--primary">Crear cuenta</button>
+      <button type="button" class="btn-neon btn-neon--ghost" (click)="limpiar()">Limpiar</button>
+    </div>
+
+    <p class="form-links">
+      <a routerLink="/login">¿Ya tienes cuenta? Inicia sesión</a>
+    </p>
+  </form>
+</section>

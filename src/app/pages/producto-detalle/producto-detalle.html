@@ -1,0 +1,43 @@
+<section>
+  <p class="empty-state" *ngIf="!producto">
+    El producto que buscas no existe. <a routerLink="/">Volver al inicio</a>.
+  </p>
+
+  <div class="ls-panel producto-detalle" *ngIf="producto">
+    <div class="row g-4">
+      <div class="col-12 col-md-5">
+        <img class="producto-detalle-img" [src]="'/' + producto.img" [alt]="'Caja del juego ' + producto.nombre">
+      </div>
+      <div class="col-12 col-md-7">
+        <span class="badge-discount" *ngIf="producto.precioOld">¡Oferta!</span>
+        <h2 class="section-title">{{ producto.nombre }}</h2>
+        <p>
+          <a [routerLink]="['/categoria', slugCategoria(producto.categoria)]" class="cta">
+            {{ producto.categoria }}
+          </a>
+        </p>
+        <p class="description">{{ producto.desc }}</p>
+
+        <div class="price-row">
+          <span class="price">{{ producto.precio | clp }}</span>
+          <span class="price-old" *ngIf="producto.precioOld">{{ producto.precioOld | clp }}</span>
+        </div>
+
+        <p class="discount-tag discount-tag--yes" *ngIf="producto.precioOld">Con descuento</p>
+        <p class="discount-tag discount-tag--none" *ngIf="!producto.precioOld">Sin descuento</p>
+
+        <p [class.stock-low]="producto.stock <= 5" [class.stock-ok]="producto.stock > 5">
+          Stock disponible: {{ producto.stock }}
+        </p>
+
+        <button type="button" class="btn-neon btn-neon--primary" (click)="agregar()">
+          Agregar al carrito
+        </button>
+
+        <p class="form-success show" [class.form-success--error]="feedback.tipo === 'err'" *ngIf="feedback">
+          {{ feedback.texto }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

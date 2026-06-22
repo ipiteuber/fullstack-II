@@ -1,0 +1,37 @@
+<header class="site-header">
+  <h1 class="site-logo">LINK START!</h1>
+  <p class="site-tagline">Conecta. Juega. Gana.</p>
+</header>
+
+<nav class="main-nav" aria-label="Navegación principal">
+  <ul>
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+    <li><a routerLink="/categoria/estrategia" routerLinkActive="active">Estrategia</a></li>
+    <li><a routerLink="/categoria/cooperativos" routerLinkActive="active">Cooperativos</a></li>
+    <li><a routerLink="/categoria/cartas" routerLinkActive="active">Cartas</a></li>
+    <li><a routerLink="/categoria/party" routerLinkActive="active">Party Games</a></li>
+
+    <li>
+      <a routerLink="/carrito" routerLinkActive="active">
+        Carrito<span *ngIf="cart.totalItems() > 0"> ({{ cart.totalItems() }})</span>
+      </a>
+    </li>
+
+    <ng-container *ngIf="!auth.estaLogueado()">
+      <li><a routerLink="/login" routerLinkActive="active">Ingresar</a></li>
+      <li><a routerLink="/registro" routerLinkActive="active">Registro</a></li>
+    </ng-container>
+
+    <ng-container *ngIf="auth.estaLogueado()">
+      <li><a routerLink="/mis-compras" routerLinkActive="active">Mis compras</a></li>
+      <li><a routerLink="/perfil" routerLinkActive="active">Perfil</a></li>
+
+      <ng-container *ngIf="auth.esAdmin()">
+        <li><a routerLink="/admin/productos" routerLinkActive="active">Productos</a></li>
+        <li><a routerLink="/admin/inventario" routerLinkActive="active">Inventario</a></li>
+      </ng-container>
+
+      <li><a href="#" (click)="$event.preventDefault(); salir()">Salir ({{ auth.sesion()?.nombre }})</a></li>
+    </ng-container>
+  </ul>
+</nav>

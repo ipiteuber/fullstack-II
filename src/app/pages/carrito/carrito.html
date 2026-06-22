@@ -1,0 +1,46 @@
+<section>
+  <h2 class="section-title">Tu carrito</h2>
+
+  <p class="empty-state" *ngIf="cart.items().length === 0">
+    Tu carrito está vacío. <a routerLink="/">Ver catálogo</a>.
+  </p>
+
+  <div class="ls-panel" *ngIf="cart.items().length > 0">
+    <table class="ls-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart.items()">
+          <td>
+            <div class="cart-prod">
+              <img [src]="'/' + item.img" [alt]="item.nombre" width="54" height="54">
+              <span>{{ item.nombre }}</span>
+            </div>
+          </td>
+          <td>{{ item.precio | clp }}</td>
+          <td>
+            <input class="qty-input" type="number" min="1" [value]="item.cant"
+              (change)="cambiar(item.id, $event)">
+          </td>
+          <td>{{ item.precio * item.cant | clp }}</td>
+          <td><button type="button" class="btn-mini" (click)="quitar(item.id)">Quitar</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cart-resumen">
+      <p class="cart-total">Total: <strong>{{ cart.totalCLP() | clp }}</strong></p>
+      <div class="form-actions">
+        <button type="button" class="btn-neon btn-neon--ghost" (click)="vaciar()">Vaciar carrito</button>
+        <a class="btn-neon btn-neon--primary" routerLink="/pago">Finalizar compra</a>
+      </div>
+    </div>
+  </div>
+</section>

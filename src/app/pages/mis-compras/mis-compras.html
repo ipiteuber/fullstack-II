@@ -1,0 +1,31 @@
+<section>
+  <h2 class="section-title">Mis compras</h2>
+
+  <div class="guard-msg" *ngIf="!auth.estaLogueado()">
+    <p>Debes iniciar sesión para ver tus compras.</p>
+    <a class="btn-neon btn-neon--primary" routerLink="/login">Ir a iniciar sesión</a>
+  </div>
+
+  <ng-container *ngIf="auth.estaLogueado()">
+    <p class="empty-state" *ngIf="ordenes.length === 0">
+      Todavía no has realizado compras. <a routerLink="/">Ver catálogo</a>.
+    </p>
+
+    <div class="ls-panel" *ngFor="let orden of ordenes">
+      <h3>// {{ orden.id }} · {{ orden.fecha }}</h3>
+      <table class="ls-table">
+        <thead>
+          <tr><th>Producto</th><th>Cantidad</th><th>Subtotal</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orden.items">
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.cant }}</td>
+            <td>{{ item.precio * item.cant | clp }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="cart-total">Total de la orden: <strong>{{ orden.total | clp }}</strong></p>
+    </div>
+  </ng-container>
+</section>

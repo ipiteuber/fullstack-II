@@ -1,0 +1,90 @@
+<section>
+  <h2 class="section-title">Mantenedor de productos</h2>
+
+  <div class="guard-msg" *ngIf="!auth.esAdmin()">
+    <p>Solo los administradores pueden acceder a esta página.</p>
+    <a class="btn-neon btn-neon--primary" routerLink="/login">Ir a iniciar sesión</a>
+  </div>
+
+  <ng-container *ngIf="auth.esAdmin()">
+    <form class="register-card" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+      <h3>{{ tituloForm }}</h3>
+
+      <p class="form-success show" [class.form-success--error]="esError" *ngIf="mensaje">{{ mensaje }}</p>
+
+      <div class="form-field">
+        <label class="form-label" for="nombre">Nombre *</label>
+        <input id="nombre" type="text" class="form-control" formControlName="nombre"
+          [class.is-invalid]="f.nombre.invalid && f.nombre.touched">
+        <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.['required']">!! El nombre es obligatorio.</p>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="categoria">Categoría *</label>
+        <select id="categoria" class="form-control" formControlName="categoria"
+          [class.is-invalid]="f.categoria.invalid && f.categoria.touched">
+          <option value="">Selecciona...</option>
+          <option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
+        </select>
+        <p class="field-error show" *ngIf="f.categoria.touched && f.categoria.errors?.['required']">!! Selecciona una categoría.</p>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="precio">Precio *</label>
+        <input id="precio" type="number" min="0" class="form-control" formControlName="precio"
+          [class.is-invalid]="f.precio.invalid && f.precio.touched">
+        <p class="field-error show" *ngIf="f.precio.touched && f.precio.invalid">!! Ingresa un precio válido (≥ 0).</p>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="precioOld">Precio anterior (opcional)</label>
+        <input id="precioOld" type="number" min="0" class="form-control" formControlName="precioOld" placeholder="Solo si está en oferta">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="stock">Stock *</label>
+        <input id="stock" type="number" min="0" class="form-control" formControlName="stock"
+          [class.is-invalid]="f.stock.invalid && f.stock.touched">
+        <p class="field-error show" *ngIf="f.stock.touched && f.stock.invalid">!! Ingresa un stock válido (≥ 0).</p>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="img">Imagen (ruta, opcional)</label>
+        <input id="img" type="text" class="form-control" formControlName="img" placeholder="img/juegos/...">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="desc">Descripción *</label>
+        <input id="desc" type="text" class="form-control" formControlName="desc"
+          [class.is-invalid]="f.desc.invalid && f.desc.touched">
+        <p class="field-error show" *ngIf="f.desc.touched && f.desc.errors?.['required']">!! La descripción es obligatoria.</p>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-neon btn-neon--primary">{{ editId ? 'Guardar cambios' : 'Agregar producto' }}</button>
+        <button type="button" class="btn-neon btn-neon--ghost" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="ls-panel">
+      <h3>Productos cargados</h3>
+      <table class="ls-table">
+        <thead>
+          <tr><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productos">
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.categoria }}</td>
+            <td>{{ p.precio | clp }}</td>
+            <td>{{ p.stock }}</td>
+            <td>
+              <button type="button" class="btn-mini btn-mini--ok" (click)="editar(p)">Editar</button>
+              <button type="button" class="btn-mini" (click)="eliminar(p.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</section>

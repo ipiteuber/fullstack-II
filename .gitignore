@@ -17,3 +17,37 @@ Desktop.ini
 
 # Sistema
 *.log
+
+# Dependencias (se regeneran con npm install)
+/node_modules
+
+# Resultado de compilacion
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Cache de Angular y cobertura de pruebas
+/.angular/cache
+/coverage
+
+# Logs
+npm-debug.log
+yarn-error.log
+testem.log
+
+# Editores e IDE
+.idea/
+.project
+.classpath
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Comprimidos de entrega
+*.zip
+*.rar
