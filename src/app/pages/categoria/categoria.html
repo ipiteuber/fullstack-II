@@ -18,30 +18,11 @@
 
   <div class="games-grid row g-4">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let prod of productosFiltrados">
-      <article class="game-card">
-        <span class="badge-discount" *ngIf="prod.precioOld">¡Oferta!</span>
-        <a [routerLink]="['/producto', prod.id]">
-          <img [src]="'/' + prod.img" [alt]="'Caja del juego ' + prod.nombre">
-        </a>
-        <div class="game-card-body">
-          <h2><a [routerLink]="['/producto', prod.id]">{{ prod.nombre }}</a></h2>
-          <p class="description">{{ prod.desc }}</p>
-          <div class="price-row">
-            <span class="price">{{ prod.precio | clp }}</span>
-            <span class="price-old" *ngIf="prod.precioOld">{{ prod.precioOld | clp }}</span>
-          </div>
-          <span class="discount-tag discount-tag--yes" *ngIf="prod.precioOld">Con descuento</span>
-          <span class="discount-tag discount-tag--none" *ngIf="!prod.precioOld">Sin descuento</span>
-          <button
-            type="button"
-            class="add-cart"
-            (click)="agregar(prod)"
-            [class.add-cart--ok]="feedback?.id === prod.id && feedback?.tipo === 'ok'">
-            <ng-container *ngIf="feedback?.id === prod.id; else etiquetaNormal">{{ feedback?.texto }}</ng-container>
-            <ng-template #etiquetaNormal>Agregar al carrito</ng-template>
-          </button>
-        </div>
-      </article>
+      <app-game-card
+        [producto]="prod"
+        [feedback]="feedback && feedback.id === prod.id ? { texto: feedback.texto, tipo: feedback.tipo } : null"
+        (agregar)="agregar($event)">
+      </app-game-card>
     </div>
   </div>
 </section>

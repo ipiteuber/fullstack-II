@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart';
 import { Orden } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
+/** Historial de ordenes del usuario que inicio sesion. */
 @Component({
   selector: 'app-mis-compras',
   imports: [CommonModule, RouterLink, ClpPipe],

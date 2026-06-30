@@ -9,6 +9,7 @@ interface TarjetaCategoria {
   img: string;
 }
 
+/** Pagina de inicio. Lista las cuatro categorias de juegos con *ngFor. */
 @Component({
   selector: 'app-home',
   imports: [CommonModule, RouterLink],

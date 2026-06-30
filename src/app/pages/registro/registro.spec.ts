@@ -18,11 +18,11 @@ describe('Registro (formulario reactivo)', () => {
 
   // Datos de prueba que cumplen todas las reglas del formulario
   const datosValidos = {
-    nombre: 'Pia Martinez',
+    nombre: 'Pia T',
     usuario: 'piam',
     correo: 'pia@test.cl',
-    password: 'Abc123',
-    password2: 'Abc123',
+    password: 'Abc123$',
+    password2: 'Abc123$',
     fechaNac: '2000-01-01',
     direccion: '',
   };
@@ -42,11 +42,11 @@ describe('Registro (formulario reactivo)', () => {
   });
 
   it('marca error cuando las contraseñas no coinciden', () => {
-    componente.form.setValue({ ...datosValidos, password2: 'Otra123' });
+    componente.form.setValue({ ...datosValidos, password2: 'Otra123$' });
     expect(componente.form.errors?.['noCoinciden']).toBeTrue();
   });
 
-  it('exige contraseña con número y mayúscula', () => {
+  it('exige contraseña con mayuscula, minuscula, numero y caracter especial', () => {
     componente.form.patchValue({ ...datosValidos, password: 'abcdef', password2: 'abcdef' });
     expect(componente.form.controls.password.errors?.['complejidad']).toBeTruthy();
   });

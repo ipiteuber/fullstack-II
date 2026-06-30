@@ -7,6 +7,7 @@ import { DataService } from '../../services/data';
 import { Producto } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
+/** Mantenedor de productos (solo admin): crear, editar y eliminar. */
 @Component({
   selector: 'app-admin-productos',
   imports: [CommonModule, ReactiveFormsModule, RouterLink, ClpPipe],

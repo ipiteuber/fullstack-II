@@ -1,0 +1,24 @@
+<article class="game-card">
+  <span class="badge-discount" *ngIf="producto.precioOld">¡Oferta!</span>
+  <a [routerLink]="['/producto', producto.id]">
+    <img [src]="'/' + producto.img" [alt]="'Caja del juego ' + producto.nombre">
+  </a>
+  <div class="game-card-body">
+    <h2><a [routerLink]="['/producto', producto.id]">{{ producto.nombre }}</a></h2>
+    <p class="description">{{ producto.desc }}</p>
+    <div class="price-row">
+      <span class="price">{{ producto.precio | clp }}</span>
+      <span class="price-old" *ngIf="producto.precioOld">{{ producto.precioOld | clp }}</span>
+    </div>
+    <span class="discount-tag discount-tag--yes" *ngIf="producto.precioOld">Con descuento</span>
+    <span class="discount-tag discount-tag--none" *ngIf="!producto.precioOld">Sin descuento</span>
+    <button
+      type="button"
+      class="add-cart"
+      (click)="agregar.emit(producto)"
+      [class.add-cart--ok]="feedback?.tipo === 'ok'">
+      <ng-container *ngIf="feedback; else etiquetaNormal">{{ feedback.texto }}</ng-container>
+      <ng-template #etiquetaNormal>Agregar al carrito</ng-template>
+    </button>
+  </div>
+</article>

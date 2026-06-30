@@ -77,7 +77,7 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn-neon btn-neon--primary">Pagar ahora</button>
+              <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">Pagar ahora</button>
               <a class="btn-neon btn-neon--ghost" routerLink="/carrito">Volver al carrito</a>
             </div>
           </form>

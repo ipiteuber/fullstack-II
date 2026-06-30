@@ -2,6 +2,11 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { DataService } from './data';
 import { CartItem, Orden } from '../models/models';
 
+/**
+ * Servicio del carrito de compras. Mantiene las lineas del carrito como signal
+ * (para que el contador del menu se actualice solo), calcula los totales y
+ * genera la orden al confirmar la compra descontando el stock.
+ */
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private data = inject(DataService);
@@ -19,6 +24,7 @@ export class CartService {
     return this.items();
   }
 
+  /** Agrega un producto al carrito validando que exista y que haya stock. */
   agregar(idProducto: string, cantidad = 1): { ok: boolean; total?: number; error?: string } {
     const prod = this.data.productos().find((p) => p.id === idProducto);
     if (!prod) {
@@ -54,6 +60,7 @@ export class CartService {
     this.persistir([]);
   }
 
+  /** Confirma la compra: valida stock, genera la orden, la guarda y vacia el carrito. */
   confirmarCompra(usuario: string): { ok: boolean; orden?: Orden; error?: string } {
     const lista = this.items();
     if (lista.length === 0) {

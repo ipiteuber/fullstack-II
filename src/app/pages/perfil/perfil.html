@@ -54,7 +54,7 @@
       <input id="password" type="password" class="form-control" formControlName="password"
         [class.is-invalid]="f.password.invalid && f.password.touched">
       <p class="field-error show" *ngIf="f.password.touched && (f.password.errors?.['minlength'] || f.password.errors?.['maxlength'])">!! Debe tener entre 6 y 18 caracteres.</p>
-      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['complejidad']">!! Debe incluir al menos un número y una letra mayúscula.</p>
+      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['complejidad']">!! Debe incluir mayúscula, minúscula, número y carácter especial.</p>
     </div>
 
     <div class="form-field">
@@ -65,7 +65,7 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn-neon btn-neon--primary">Guardar cambios</button>
+      <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">Guardar cambios</button>
       <button type="button" class="btn-neon btn-neon--ghost" (click)="cerrarSesion()">Cerrar sesión</button>
     </div>
   </form>

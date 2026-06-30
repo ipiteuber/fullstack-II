@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
+/** Pagina del carrito. Permite cambiar cantidades, quitar productos y vaciarlo. */
 @Component({
   selector: 'app-carrito',
   imports: [CommonModule, RouterLink, ClpPipe],

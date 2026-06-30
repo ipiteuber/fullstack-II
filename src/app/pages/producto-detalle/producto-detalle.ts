@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart';
 import { Producto } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
+/** Ficha de detalle de un producto. Lee el :id de la ruta y muestra sus datos. */
 @Component({
   selector: 'app-producto-detalle',
   imports: [CommonModule, RouterLink, ClpPipe],

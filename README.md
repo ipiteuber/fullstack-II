@@ -5,47 +5,69 @@ Aplicacion FrontEnd de una tienda de juegos de mesa con dos roles de usuario
 pago simulado y mantenedores de productos e inventario. Los datos se guardan
 en el navegador mediante localStorage.
 
+## Requisitos
+
+- Node.js 22 o 24 LTS (funciona tambien en versiones mas nuevas).
+- npm 10 o superior.
+
+## Instalacion
+
+```bash
+npm install
+```
+
+## Ejecucion
+
+```bash
+npm start
+```
+
+Luego abrir `http://localhost:4200/` en el navegador.
+
+Cuenta de administrador precargada:
+
+- Usuario: `admin`
+- Contrasena: `Admin#2026`
+
+## Pruebas unitarias
+
+Se ejecutan con Jasmine y Karma:
+
+```bash
+npm test
+```
+
+
+## Documentacion del codigo
+
+La documentacion se genera con Compodoc:
+
+```bash
+npm run compodoc          # Genera la documentacion en /documentation
+npm run compodoc:serve    # La genera y la abre en navegador
+```
+
+## Build de produccion
+
+```bash
+npm run build
+```
+
+Los archivos quedan en la carpeta `dist/`.
+
+
+
 ## Estructura del proyecto
 
 ```
-LinkStart/
-├── index.html                  # Pagina principal con las 4 categorias
-├── login.html                  # Inicio de sesion
-├── registro.html               # Registro de usuarios
-├── recuperar.html              # Recuperar contraseña
-├── perfil.html                 # Modificacion de perfil (requiere sesion)
-├── carrito.html                # Carrito de compras
-├── pago.html                   # Pago simulado (requiere sesion)
-├── mis-compras.html            # Historial de compras del usuario
-├── categorias/
-│   ├── estrategia.html
-│   ├── cooperativos.html
-│   ├── cartas.html
-│   └── party.html
-├── admin/
-│   ├── productos.html          # Mantenedor de productos (solo admin)
-│   └── inventario.html         # Control de stock (solo admin)
-├── css/
-│   └── styles.css              # Variables CSS, animaciones y estilos del sitio
-├── js/
-│   ├── data.js                 # Capa de datos y seed en localStorage
-│   ├── auth.js                 # Registro, login, sesion, roles y validaciones
-│   ├── carrito.js              # Logica del carrito y ordenes
-│   ├── nav.js                  # Menu dinamico segun sesion y rol
-│   ├── catalogo.js             # Boton "agregar al carrito" en las fichas
-│   ├── validacion.js           # Validacion del registro
-│   ├── login.js                # Validacion del inicio de sesion
-│   ├── recuperar.js            # Validacion de recuperar contraseña
-│   ├── perfil.js               # Modificacion de perfil
-│   ├── carrito-page.js         # Render de la pagina de carrito
-│   ├── pago.js                 # Validacion y confirmacion del pago
-│   ├── mis-compras.js          # Render del historial de compras
-│   ├── admin-productos.js      # CRUD de productos
-│   └── admin-inventario.js     # Ajuste de stock
-├── img/
-│   ├── categorias/             # 4 imagenes (una por categoria)
-│   └── juegos/                 # 12 imagenes (una por juego)
-└── README.md
+src/app/
+  components/      Componentes reutilizables (nav, game-card)
+  pages/           Una carpeta por pantalla (home, login, registro, etc.)
+  services/        DataService, AuthService y CartService
+  pipes/           ClpPipe (formato de precio chileno)
+  models/          Interfaces de datos
+  validators.ts    Validadores personalizados de los formularios reactivos
+  app.routes.ts    Rutas (incluye categoria/:cat y producto/:id)
 ```
 
 ## Roles y cuenta de prueba

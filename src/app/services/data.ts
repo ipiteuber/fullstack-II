@@ -26,6 +26,11 @@ const USUARIO_ADMIN: Usuario = {
   rol: 'admin',
 };
 
+/**
+ * Capa de acceso a datos. Centraliza la lectura y escritura en localStorage
+ * (usuarios, productos, ordenes y carrito) y deja precargado el catalogo y la
+ * cuenta de administrador la primera vez que se abre la aplicacion.
+ */
 @Injectable({ providedIn: 'root' })
 export class DataService {
   readonly K_USERS = 'ls_users';
@@ -101,6 +106,7 @@ export class DataService {
     this.guardar(this.K_CART, lista);
   }
 
+  /** Precarga el catalogo, la cuenta admin y la lista de ordenes si no existen. */
   private sembrar(): void {
     if (!localStorage.getItem(this.K_PRODUCTS)) {
       this.guardarProductos(CATALOGO_INICIAL);

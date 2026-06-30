@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { complejidadPassword, edadMinima, passwordsIguales } from '../../validators';
 
+/** Formulario reactivo de registro con todas las validaciones de la cuenta. */
 @Component({
   selector: 'app-registro',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],

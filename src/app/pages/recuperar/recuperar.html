@@ -18,7 +18,7 @@
         [class.is-invalid]="f.password.invalid && f.password.touched">
       <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['required']">!! La contraseña es obligatoria.</p>
       <p class="field-error show" *ngIf="f.password.touched && (f.password.errors?.['minlength'] || f.password.errors?.['maxlength'])">!! Debe tener entre 6 y 18 caracteres.</p>
-      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['complejidad']">!! Debe incluir al menos un número y una letra mayúscula.</p>
+      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.['complejidad']">!! Debe incluir mayúscula, minúscula, número y carácter especial.</p>
     </div>
 
     <div class="form-field">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn-neon btn-neon--primary">Cambiar contraseña</button>
+      <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">Cambiar contraseña</button>
       <button type="button" class="btn-neon btn-neon--ghost" (click)="limpiar()">Limpiar</button>
     </div>
 

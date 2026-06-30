@@ -61,7 +61,7 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn-neon btn-neon--primary">{{ editId ? 'Guardar cambios' : 'Agregar producto' }}</button>
+        <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">{{ editId ? 'Guardar cambios' : 'Agregar producto' }}</button>
         <button type="button" class="btn-neon btn-neon--ghost" (click)="cancelar()">Cancelar</button>
       </div>
     </form>

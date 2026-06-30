@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
+/** Formulario reactivo de inicio de sesion. Redirige segun el rol del usuario. */
 @Component({
   selector: 'app-login',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],

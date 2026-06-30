@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { complejidadPassword, passwordsIguales } from '../../validators';
 
+/** Formulario reactivo para cambiar la contraseña a partir del correo. */
 @Component({
   selector: 'app-recuperar',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],

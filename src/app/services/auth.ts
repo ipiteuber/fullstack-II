@@ -11,6 +11,11 @@ export interface DatosRegistro {
   direccion: string;
 }
 
+/**
+ * Servicio de autenticacion. Maneja el registro, el inicio y cierre de sesion,
+ * los roles (cliente y admin) y la edicion del perfil. La sesion activa se
+ * expone como signal para que el menu reaccione al ingresar o salir.
+ */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private data = inject(DataService);
@@ -40,6 +45,10 @@ export class AuthService {
     return this.data.usuarios().find((x) => x.correo.toLowerCase() === c);
   }
 
+  /**
+   * Registra un nuevo usuario con rol cliente. Rechaza el registro si el
+   * usuario o el correo ya estan tomados.
+   */
   registrar(datos: DatosRegistro): { ok: boolean; usuario?: Usuario; error?: string } {
     if (this.buscarPorUsuario(datos.usuario)) {
       return { ok: false, error: 'Ese nombre de usuario ya está registrado.' };
@@ -62,6 +71,7 @@ export class AuthService {
     return { ok: true, usuario: nuevo };
   }
 
+  /** Inicia sesion aceptando nombre de usuario o correo, y guarda la sesion. */
   login(usuarioOcorreo: string, password: string): { ok: boolean; usuario?: Usuario; error?: string } {
     const ident = usuarioOcorreo.trim().toLowerCase();
     const user = this.data

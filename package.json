@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "compodoc": "compodoc -p tsconfig.doc.json",
+    "compodoc:serve": "compodoc -p tsconfig.doc.json -s -o"
   },
   "prettier": {
     "printWidth": 100,
@@ -37,6 +39,7 @@
     "@angular/build": "^20.3.29",
     "@angular/cli": "^20.3.29",
     "@angular/compiler-cli": "^20.3.0",
+    "@compodoc/compodoc": "^1.2.1",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",

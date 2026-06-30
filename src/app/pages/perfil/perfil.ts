@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { complejidadPassword, edadMinima, passwordsIguales } from '../../validators';
 
+/** Formulario reactivo de edicion de perfil. Requiere sesion iniciada. */
 @Component({
   selector: 'app-perfil',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],

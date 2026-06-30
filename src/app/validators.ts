@@ -1,16 +1,29 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-// La contraseña debe tener al menos un numero y una letra mayuscula.
+/**
+ * Valida la robustez de la contraseña. Exige al menos un numero, una letra
+ * mayuscula, una letra minuscula y un caracter especial. Junto con los
+ * validadores de longitud (minLength 6 y maxLength 18) completa las cuatro
+ * validaciones de seguridad pedidas.
+ */
 export function complejidadPassword(control: AbstractControl): ValidationErrors | null {
   const v = control.value as string;
   if (!v) return null; // El validador required se encarga del campo vacio
   const tieneNumero = /[0-9]/.test(v);
   const tieneMayuscula = /[A-Z]/.test(v);
-  if (tieneNumero && tieneMayuscula) return null;
-  return { complejidad: { tieneNumero, tieneMayuscula } };
+  const tieneMinuscula = /[a-z]/.test(v);
+  const tieneEspecial = /[^A-Za-z0-9]/.test(v);
+  if (tieneNumero && tieneMayuscula && tieneMinuscula && tieneEspecial) {
+    return null;
+  }
+  return { complejidad: { tieneNumero, tieneMayuscula, tieneMinuscula, tieneEspecial } };
 }
 
-// Edad minima a partir de la fecha de nacimiento (formato YYYY-MM-DD).
+/**
+ * Verifica que la persona tenga la edad minima indicada a partir de su fecha
+ * de nacimiento (formato YYYY-MM-DD).
+ * @param minimo Edad minima permitida en anios.
+ */
 export function edadMinima(minimo: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const v = control.value as string;
@@ -27,7 +40,12 @@ export function edadMinima(minimo: number): ValidatorFn {
   };
 }
 
-// Compara los dos campos de contraseña para que sean iguales.
+/**
+ * Validador a nivel de grupo: compara dos campos de contraseña y marca error
+ * si no coinciden.
+ * @param campo Nombre del control de la contraseña.
+ * @param repetir Nombre del control que la repite.
+ */
 export function passwordsIguales(campo = 'password', repetir = 'password2'): ValidatorFn {
   return (group: AbstractControl): ValidationErrors | null => {
     const pass = group.get(campo)?.value;

@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth';
 import { DataService } from '../../services/data';
 import { Producto } from '../../models/models';
 
+/** Control de inventario (solo admin): ajustar el stock de cada producto. */
 @Component({
   selector: 'app-admin-inventario',
   imports: [CommonModule, RouterLink],

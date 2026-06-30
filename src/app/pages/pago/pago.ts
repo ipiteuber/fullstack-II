@@ -7,6 +7,7 @@ import { CartService } from '../../services/cart';
 import { Orden } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
+/** Pago simulado. Requiere sesion y carrito con productos; genera la orden. */
 @Component({
   selector: 'app-pago',
   imports: [CommonModule, ReactiveFormsModule, RouterLink, ClpPipe],
