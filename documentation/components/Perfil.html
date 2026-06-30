@@ -1,0 +1,930 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>linkstart-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">linkstart-angular documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  Perfil</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/perfil/perfil.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Formulario reactivo de edicion de perfil. Requiere sesion iniciada.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-perfil</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./perfil.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#auth" >auth</a>
+                            </li>
+                            <li>
+                                <a href="#esError" >esError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fb" >fb</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#mensaje" >mensaje</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#router" >router</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cerrarSesion" >cerrarSesion</a>
+                            </li>
+                            <li>
+                                <a href="#enviar" >enviar</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#f" >f</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarSesion"></a>
+                    <span class="name">
+                        <span ><b>cerrarSesion</b></span>
+                        <a href="#cerrarSesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarSesion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/pages/perfil/perfil.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enviar"></a>
+                    <span class="name">
+                        <span ><b>enviar</b></span>
+                        <a href="#enviar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>enviar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/app/pages/perfil/perfil.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/pages/perfil/perfil.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="auth"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>auth</b></span>
+                        <a href="#auth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/perfil/perfil.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="esError"></a>
+                    <span class="name">
+                        <span ><b>esError</b></span>
+                        <a href="#esError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/perfil/perfil.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fb"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fb</b></span>
+                        <a href="#fb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FormBuilder)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/pages/perfil/perfil.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.fb.group(
+    {
+      nombre: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+      usuario: [{ value: &#x27;&#x27;, disabled: true }],
+      correo: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      fechaNac: [&#x27;&#x27;, [Validators.required, edadMinima(13)]],
+      direccion: [&#x27;&#x27;],
+      password: [&#x27;&#x27;, [Validators.minLength(6), Validators.maxLength(18), complejidadPassword]],
+      password2: [&#x27;&#x27;],
+    },
+    { validators: passwordsIguales() },
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/perfil/perfil.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensaje"></a>
+                    <span class="name">
+                        <span ><b>mensaje</b></span>
+                        <a href="#mensaje"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/perfil/perfil.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/perfil/perfil.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="f"></a>
+                        <span class="name"><b>f</b><a href="#f"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>f()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/perfil/perfil.ts:35</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, inject } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormBuilder, ReactiveFormsModule, Validators } from &#x27;@angular/forms&#x27;;
+import { Router, RouterLink } from &#x27;@angular/router&#x27;;
+import { AuthService } from &#x27;../../services/auth&#x27;;
+import { complejidadPassword, edadMinima, passwordsIguales } from &#x27;../../validators&#x27;;
+
+/** Formulario reactivo de edicion de perfil. Requiere sesion iniciada. */
+@Component({
+  selector: &#x27;app-perfil&#x27;,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  templateUrl: &#x27;./perfil.html&#x27;,
+})
+export class Perfil implements OnInit {
+  private fb &#x3D; inject(FormBuilder);
+  protected auth &#x3D; inject(AuthService);
+  private router &#x3D; inject(Router);
+
+  mensaje &#x3D; &#x27;&#x27;;
+  esError &#x3D; false;
+
+  form &#x3D; this.fb.group(
+    {
+      nombre: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+      usuario: [{ value: &#x27;&#x27;, disabled: true }],
+      correo: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      fechaNac: [&#x27;&#x27;, [Validators.required, edadMinima(13)]],
+      direccion: [&#x27;&#x27;],
+      password: [&#x27;&#x27;, [Validators.minLength(6), Validators.maxLength(18), complejidadPassword]],
+      password2: [&#x27;&#x27;],
+    },
+    { validators: passwordsIguales() },
+  );
+
+  get f() {
+    return this.form.controls;
+  }
+
+  ngOnInit(): void {
+    const u &#x3D; this.auth.sesion();
+    if (u) {
+      this.form.patchValue({
+        nombre: u.nombre,
+        usuario: u.usuario,
+        correo: u.correo,
+        fechaNac: u.fechaNac,
+        direccion: u.direccion,
+      });
+    }
+  }
+
+  enviar(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const u &#x3D; this.auth.sesion();
+    if (!u) return;
+    const v &#x3D; this.form.getRawValue();
+    const cambios: Record&lt;string, string&gt; &#x3D; {
+      nombre: v.nombre!,
+      correo: v.correo!,
+      fechaNac: v.fechaNac!,
+      direccion: v.direccion ?? &#x27;&#x27;,
+    };
+    if (v.password) {
+      cambios[&#x27;password&#x27;] &#x3D; v.password;
+    }
+    const r &#x3D; this.auth.actualizarPerfil(u.usuario, cambios);
+    if (!r.ok) {
+      this.esError &#x3D; true;
+      this.mensaje &#x3D; r.error ?? &#x27;No se pudo guardar.&#x27;;
+      return;
+    }
+    this.esError &#x3D; false;
+    this.mensaje &#x3D; &#x27;Datos actualizados correctamente.&#x27;;
+    this.form.patchValue({ password: &#x27;&#x27;, password2: &#x27;&#x27; });
+  }
+
+  cerrarSesion(): void {
+    this.auth.logout();
+    this.router.navigate([&#x27;/&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;section class&#x3D;&quot;form-wrap&quot;&gt;
+  &lt;div class&#x3D;&quot;guard-msg&quot; *ngIf&#x3D;&quot;!auth.estaLogueado()&quot;&gt;
+    &lt;p&gt;Debes iniciar sesión para ver tu perfil.&lt;/p&gt;
+    &lt;a class&#x3D;&quot;btn-neon btn-neon--primary&quot; routerLink&#x3D;&quot;/login&quot;&gt;Ir a iniciar sesión&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;form class&#x3D;&quot;register-card&quot; *ngIf&#x3D;&quot;auth.estaLogueado()&quot; [formGroup]&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;enviar()&quot; novalidate&gt;
+    &lt;h2 class&#x3D;&quot;section-title&quot;&gt;Mi perfil&lt;/h2&gt;
+    &lt;p&gt;
+      Rol:
+      &lt;span class&#x3D;&quot;role-badge&quot; [class.role-badge--admin]&#x3D;&quot;auth.esAdmin()&quot;&gt;
+        {{ auth.esAdmin() ? &#x27;Admin&#x27; : &#x27;Cliente&#x27; }}
+      &lt;/span&gt;
+    &lt;/p&gt;
+
+    &lt;p class&#x3D;&quot;form-success show&quot; [class.form-success--error]&#x3D;&quot;esError&quot; *ngIf&#x3D;&quot;mensaje&quot;&gt;{{ mensaje }}&lt;/p&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;nombre&quot;&gt;Nombre completo *&lt;/label&gt;
+      &lt;input id&#x3D;&quot;nombre&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;nombre&quot;
+        [class.is-invalid]&#x3D;&quot;f.nombre.invalid &amp;&amp; f.nombre.touched&quot;&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.nombre.touched &amp;&amp; f.nombre.errors?.[&#x27;required&#x27;]&quot;&gt;!! El nombre es obligatorio.&lt;/p&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.nombre.touched &amp;&amp; f.nombre.errors?.[&#x27;minlength&#x27;]&quot;&gt;!! Debe tener al menos 3 caracteres.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;usuario&quot;&gt;Nombre de usuario&lt;/label&gt;
+      &lt;input id&#x3D;&quot;usuario&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;usuario&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;correo&quot;&gt;Correo electrónico *&lt;/label&gt;
+      &lt;input id&#x3D;&quot;correo&quot; type&#x3D;&quot;email&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;correo&quot;
+        [class.is-invalid]&#x3D;&quot;f.correo.invalid &amp;&amp; f.correo.touched&quot;&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.correo.touched &amp;&amp; f.correo.errors?.[&#x27;required&#x27;]&quot;&gt;!! El correo es obligatorio.&lt;/p&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.correo.touched &amp;&amp; f.correo.errors?.[&#x27;email&#x27;]&quot;&gt;!! El formato del correo no es válido.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;fechaNac&quot;&gt;Fecha de nacimiento *&lt;/label&gt;
+      &lt;input id&#x3D;&quot;fechaNac&quot; type&#x3D;&quot;date&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;fechaNac&quot;
+        [class.is-invalid]&#x3D;&quot;f.fechaNac.invalid &amp;&amp; f.fechaNac.touched&quot;&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.fechaNac.touched &amp;&amp; f.fechaNac.errors?.[&#x27;required&#x27;]&quot;&gt;!! La fecha de nacimiento es obligatoria.&lt;/p&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.fechaNac.touched &amp;&amp; f.fechaNac.errors?.[&#x27;edadMinima&#x27;]&quot;&gt;!! Debes tener al menos 13 años.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;direccion&quot;&gt;Dirección de despacho (opcional)&lt;/label&gt;
+      &lt;input id&#x3D;&quot;direccion&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;direccion&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;password&quot;&gt;Nueva contraseña (opcional)&lt;/label&gt;
+      &lt;input id&#x3D;&quot;password&quot; type&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;password&quot;
+        [class.is-invalid]&#x3D;&quot;f.password.invalid &amp;&amp; f.password.touched&quot;&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.password.touched &amp;&amp; (f.password.errors?.[&#x27;minlength&#x27;] || f.password.errors?.[&#x27;maxlength&#x27;])&quot;&gt;!! Debe tener entre 6 y 18 caracteres.&lt;/p&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.password.touched &amp;&amp; f.password.errors?.[&#x27;complejidad&#x27;]&quot;&gt;!! Debe incluir mayúscula, minúscula, número y carácter especial.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-field&quot;&gt;
+      &lt;label class&#x3D;&quot;form-label&quot; for&#x3D;&quot;password2&quot;&gt;Repetir nueva contraseña&lt;/label&gt;
+      &lt;input id&#x3D;&quot;password2&quot; type&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;password2&quot;
+        [class.is-invalid]&#x3D;&quot;f.password2.touched &amp;&amp; form.errors?.[&#x27;noCoinciden&#x27;]&quot;&gt;
+      &lt;p class&#x3D;&quot;field-error show&quot; *ngIf&#x3D;&quot;f.password2.touched &amp;&amp; form.errors?.[&#x27;noCoinciden&#x27;]&quot;&gt;!! Las contraseñas no coinciden.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn-neon btn-neon--primary&quot; [disabled]&#x3D;&quot;form.invalid&quot;&gt;Guardar cambios&lt;/button&gt;
+      &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-neon btn-neon--ghost&quot; (click)&#x3D;&quot;cerrarSesion()&quot;&gt;Cerrar sesión&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><section class="form-wrap">  <div class="guard-msg" *ngIf="!auth.estaLogueado()">    <p>Debes iniciar sesión para ver tu perfil.</p>    <a class="btn-neon btn-neon--primary" routerLink="/login">Ir a iniciar sesión</a>  </div>  <form class="register-card" *ngIf="auth.estaLogueado()" [formGroup]="form" (ngSubmit)="enviar()" novalidate>    <h2 class="section-title">Mi perfil</h2>    <p>      Rol:      <span class="role-badge" [class.role-badge--admin]="auth.esAdmin()">        {{ auth.esAdmin() ? \'Admin\' : \'Cliente\' }}      </span>    </p>    <p class="form-success show" [class.form-success--error]="esError" *ngIf="mensaje">{{ mensaje }}</p>    <div class="form-field">      <label class="form-label" for="nombre">Nombre completo *</label>      <input id="nombre" type="text" class="form-control" formControlName="nombre"        [class.is-invalid]="f.nombre.invalid && f.nombre.touched">      <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.[\'required\']">!! El nombre es obligatorio.</p>      <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.[\'minlength\']">!! Debe tener al menos 3 caracteres.</p>    </div>    <div class="form-field">      <label class="form-label" for="usuario">Nombre de usuario</label>      <input id="usuario" type="text" class="form-control" formControlName="usuario">    </div>    <div class="form-field">      <label class="form-label" for="correo">Correo electrónico *</label>      <input id="correo" type="email" class="form-control" formControlName="correo"        [class.is-invalid]="f.correo.invalid && f.correo.touched">      <p class="field-error show" *ngIf="f.correo.touched && f.correo.errors?.[\'required\']">!! El correo es obligatorio.</p>      <p class="field-error show" *ngIf="f.correo.touched && f.correo.errors?.[\'email\']">!! El formato del correo no es válido.</p>    </div>    <div class="form-field">      <label class="form-label" for="fechaNac">Fecha de nacimiento *</label>      <input id="fechaNac" type="date" class="form-control" formControlName="fechaNac"        [class.is-invalid]="f.fechaNac.invalid && f.fechaNac.touched">      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.[\'required\']">!! La fecha de nacimiento es obligatoria.</p>      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.[\'edadMinima\']">!! Debes tener al menos 13 años.</p>    </div>    <div class="form-field">      <label class="form-label" for="direccion">Dirección de despacho (opcional)</label>      <input id="direccion" type="text" class="form-control" formControlName="direccion">    </div>    <div class="form-field">      <label class="form-label" for="password">Nueva contraseña (opcional)</label>      <input id="password" type="password" class="form-control" formControlName="password"        [class.is-invalid]="f.password.invalid && f.password.touched">      <p class="field-error show" *ngIf="f.password.touched && (f.password.errors?.[\'minlength\'] || f.password.errors?.[\'maxlength\'])">!! Debe tener entre 6 y 18 caracteres.</p>      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.[\'complejidad\']">!! Debe incluir mayúscula, minúscula, número y carácter especial.</p>    </div>    <div class="form-field">      <label class="form-label" for="password2">Repetir nueva contraseña</label>      <input id="password2" type="password" class="form-control" formControlName="password2"        [class.is-invalid]="f.password2.touched && form.errors?.[\'noCoinciden\']">      <p class="field-error show" *ngIf="f.password2.touched && form.errors?.[\'noCoinciden\']">!! Las contraseñas no coinciden.</p>    </div>    <div class="form-actions">      <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">Guardar cambios</button>      <button type="button" class="btn-neon btn-neon--ghost" (click)="cerrarSesion()">Cerrar sesión</button>    </div>  </form></section></div>'
+    var COMPONENTS = [{'name': 'AdminInventario', 'selector': 'app-admin-inventario'},{'name': 'AdminProductos', 'selector': 'app-admin-productos'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'GameCard', 'selector': 'app-game-card'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'MisCompras', 'selector': 'app-mis-compras'},{'name': 'Nav', 'selector': 'app-nav'},{'name': 'Pago', 'selector': 'app-pago'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoDetalle', 'selector': 'app-producto-detalle'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'Perfil'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Perfil.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
