@@ -1,0 +1,38 @@
+[
+  {
+    "id": "expansion-catan",
+    "titulo": "Llega la nueva expansión de Catan",
+    "fecha": "2026-06-15",
+    "autor": "Equipo Link Start",
+    "imagen": "img/juegos/catan.jpg",
+    "resumen": "Una expansión que agrega nuevos escenarios y recursos al clásico de comercio y construcción.",
+    "contenido": "La esperada expansión de Catan ya está disponible en preventa. Incluye nuevas losetas de terreno, cartas de desarrollo y un modo cooperativo pensado para grupos de hasta seis jugadores. Nuestro equipo la probó durante una semana y quedamos encantados con el equilibrio entre estrategia y azar."
+  },
+  {
+    "id": "torneo-codenames",
+    "titulo": "Abrimos inscripciones al torneo de Codenames",
+    "fecha": "2026-06-10",
+    "autor": "Comunidad Link Start",
+    "imagen": "img/juegos/codenames.jpg",
+    "resumen": "Arma tu equipo y participa en nuestro primer torneo presencial de Codenames.",
+    "contenido": "Los cupos son limitados y las inscripciones ya están abiertas. El torneo se jugará por eliminación directa y el equipo ganador se llevará una selección de juegos de nuestra tienda. Es una gran oportunidad para conocer a otros aficionados de los party games."
+  },
+  {
+    "id": "guia-cooperativos",
+    "titulo": "Guía: los mejores juegos cooperativos para empezar",
+    "fecha": "2026-06-03",
+    "autor": "Equipo Link Start",
+    "imagen": "img/juegos/pandemic.jpg",
+    "resumen": "Si recién partes en los juegos de mesa, los cooperativos son una excelente puerta de entrada.",
+    "contenido": "En los juegos cooperativos todos los jugadores trabajan en equipo contra el propio juego. Recomendamos partir con Pandemic y Forbidden Island: reglas simples, partidas emocionantes y una curva de aprendizaje amable. Ideales para tardes en familia o con amigos."
+  },
+  {
+    "id": "reposicion-dixit",
+    "titulo": "Dixit vuelve a nuestro catálogo",
+    "fecha": "2026-05-28",
+    "autor": "Equipo Link Start",
+    "imagen": "img/juegos/dixit.jpg",
+    "resumen": "Uno de los party games más queridos regresa con stock disponible y en oferta.",
+    "contenido": "Después de varias semanas agotado, Dixit vuelve a estar disponible. Sus ilustraciones surrealistas y su mecánica de pistas creativas lo mantienen como un favorito de la comunidad. Aprovecha el precio de lanzamiento por tiempo limitado."
+  }
+]

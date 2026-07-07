@@ -11,11 +11,15 @@ import { Pago } from './pages/pago/pago';
 import { MisCompras } from './pages/mis-compras/mis-compras';
 import { AdminProductos } from './pages/admin-productos/admin-productos';
 import { AdminInventario } from './pages/admin-inventario/admin-inventario';
+import { Novedades } from './pages/novedades/novedades';
+import { NovedadDetalle } from './pages/novedad-detalle/novedad-detalle';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'Link Start!' },
   { path: 'categoria/:cat', component: Categoria, title: 'Categoría - Link Start!' },
   { path: 'producto/:id', component: ProductoDetalle, title: 'Producto - Link Start!' },
+  { path: 'novedades', component: Novedades, title: 'Novedades - Link Start!' },
+  { path: 'novedades/:id', component: NovedadDetalle, title: 'Novedad - Link Start!' },
   { path: 'login', component: Login, title: 'Ingresar - Link Start!' },
   { path: 'registro', component: Registro, title: 'Registro - Link Start!' },
   { path: 'recuperar', component: Recuperar, title: 'Recuperar contraseña - Link Start!' },

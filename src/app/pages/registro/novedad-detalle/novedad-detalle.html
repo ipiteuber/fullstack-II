@@ -1,0 +1,16 @@
+<section>
+  <p class="empty-state" *ngIf="cargando">Cargando...</p>
+
+  <p class="empty-state" *ngIf="!cargando && !novedad">
+    La novedad que buscas no existe. <a routerLink="/novedades">Volver a novedades</a>.
+  </p>
+
+  <article class="ls-panel novedad-detalle" *ngIf="!cargando && novedad">
+    <img class="novedad-detalle-img" [src]="'/' + novedad.imagen" [alt]="novedad.titulo">
+    <p class="novedad-meta">{{ novedad.fecha }} · {{ novedad.autor }}</p>
+    <h2 class="section-title">{{ novedad.titulo }}</h2>
+    <p class="novedad-resumen">{{ novedad.resumen }}</p>
+    <p>{{ novedad.contenido }}</p>
+    <a class="btn-neon btn-neon--ghost" routerLink="/novedades">&larr; Volver a novedades</a>
+  </article>
+</section>

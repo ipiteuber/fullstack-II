@@ -1,0 +1,42 @@
+<section>
+  <h2 class="section-title">Novedades</h2>
+  <p class="novedades-intro">Noticias y eventos del mundo de los juegos de mesa.</p>
+
+  <p class="empty-state" *ngIf="cargando">Cargando novedades...</p>
+  <p class="form-success show form-success--error" *ngIf="error">{{ error }}</p>
+
+  <div class="row g-4" *ngIf="!cargando && !error">
+    <!-- Listado de novedades -->
+    <div class="col-12 col-lg-8">
+      <div class="games-grid row g-4">
+        <div class="col-12 col-md-6" *ngFor="let n of novedades">
+          <article class="game-card">
+            <a [routerLink]="['/novedades', n.id]">
+              <img [src]="'/' + n.imagen" [alt]="n.titulo">
+            </a>
+            <div class="game-card-body">
+              <p class="novedad-meta">{{ n.fecha }} · {{ n.autor }}</p>
+              <h2><a [routerLink]="['/novedades', n.id]">{{ n.titulo }}</a></h2>
+              <p class="description">{{ n.resumen }}</p>
+              <a class="cta" [routerLink]="['/novedades', n.id]">Leer más &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proximos eventos -->
+    <div class="col-12 col-lg-4">
+      <div class="ls-panel">
+        <h3>Próximos eventos</h3>
+        <ul class="eventos-lista">
+          <li *ngFor="let e of eventos">
+            <strong>{{ e.nombre }}</strong>
+            <span class="novedad-meta">{{ e.fecha }} · {{ e.lugar }}</span>
+            <span>{{ e.descripcion }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

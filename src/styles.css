@@ -1375,3 +1375,56 @@ main {
 .ls-panel + .ls-panel {
   margin-top: var(--s-3, 1rem);
 }
+
+/* ---------- Novedades (datos desde JSON) ---------- */
+
+.novedades-intro {
+  color: var(--text-dim, #5a6478);
+  font-family: var(--font-mono, monospace);
+  margin-bottom: var(--s-4, 1.5rem);
+}
+
+.novedad-meta {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--text-dim, #5a6478);
+  display: block;
+  margin-bottom: var(--s-1, 0.25rem);
+}
+
+.eventos-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.eventos-lista li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: var(--s-2, 0.75rem) 0;
+  border-bottom: 1px solid var(--border-subtle, rgba(0, 255, 213, 0.08));
+}
+
+.eventos-lista li:last-child {
+  border-bottom: none;
+}
+
+.novedad-detalle {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.novedad-detalle-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: var(--r-md, 6px);
+  border: 1px solid var(--border-subtle, rgba(0, 255, 213, 0.08));
+  margin-bottom: var(--s-3, 1rem);
+}
+
+.novedad-resumen {
+  color: var(--text-base, #cdd2e0);
+  font-weight: 500;
+}

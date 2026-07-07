@@ -1,0 +1,23 @@
+[
+  {
+    "id": "noche-estrategia",
+    "nombre": "Noche de estrategia",
+    "fecha": "2026-07-05",
+    "lugar": "Tienda Link Start, Santiago Centro",
+    "descripcion": "Partidas abiertas de Catan, Carcassonne y Risk para todos los niveles."
+  },
+  {
+    "id": "torneo-codenames",
+    "nombre": "Torneo de Codenames",
+    "fecha": "2026-07-12",
+    "lugar": "Tienda Link Start, Santiago Centro",
+    "descripcion": "Torneo por equipos con premios en juegos de mesa."
+  },
+  {
+    "id": "taller-principiantes",
+    "nombre": "Taller para principiantes",
+    "fecha": "2026-07-19",
+    "lugar": "Online (transmisión en vivo)",
+    "descripcion": "Aprende las reglas básicas de los juegos cooperativos más populares."
+  }
+]

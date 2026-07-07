@@ -38,3 +38,22 @@ export interface Orden {
 }
 
 export type Resultado<T> = { ok: true; valor: T } | { ok: false; error: string };
+
+// Datos consumidos desde archivos JSON (novedades y eventos)
+export interface Novedad {
+  id: string;
+  titulo: string;
+  fecha: string;
+  autor: string;
+  imagen: string;
+  resumen: string;
+  contenido: string;
+}
+
+export interface Evento {
+  id: string;
+  nombre: string;
+  fecha: string;
+  lugar: string;
+  descripcion: string;
+}
