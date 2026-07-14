@@ -11,5 +11,5 @@ export const API_URL = new InjectionToken<string>('API_URL', {
 
 // Indica si la URL ya fue configurada con un proyecto real
 export function apiConfigurada(url: string): boolean {
-  return !url.includes('linkstart-16abd');
+  return !url.includes('TU-PROYECTO');
 }
