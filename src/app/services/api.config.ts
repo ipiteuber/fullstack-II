@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 // URL de la Realtime Database de Firebase
-export const FIREBASE_URL = 'https://linkstart-16abd-default-rtdb.firebaseio.com/';
+export const FIREBASE_URL = 'https://linkstart-16abd-default-rtdb.firebaseio.com';
 
 // Token de inyeccion para poder cambiar la URL en las pruebas unitarias
 export const API_URL = new InjectionToken<string>('API_URL', {
