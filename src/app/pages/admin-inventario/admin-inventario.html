@@ -23,7 +23,7 @@
           </td>
           <td [class.stock-low]="p.stock <= 5" [class.stock-ok]="p.stock > 5">{{ p.stock }}</td>
           <td><input class="qty-input" type="number" min="0" [value]="p.stock" #nuevo></td>
-          <td><button type="button" class="btn-mini btn-mini--ok" (click)="actualizar(p.id, nuevo.value)">Actualizar</button></td>
+          <td><button type="button" class="btn-mini btn-mini--ok" (click)="actualizar(p, nuevo.value)">Actualizar</button></td>
         </tr>
       </tbody>
     </table>

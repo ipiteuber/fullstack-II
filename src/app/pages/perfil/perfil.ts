@@ -57,6 +57,15 @@ export class Perfil implements OnInit {
     const u = this.auth.sesion();
     if (!u) return;
     const v = this.form.getRawValue();
+
+    // El correo nuevo no puede pertenecer a otra cuenta
+    const duenoCorreo = this.auth.buscarPorCorreo(v.correo!);
+    if (duenoCorreo && duenoCorreo.usuario.toLowerCase() !== u.usuario.toLowerCase()) {
+      this.esError = true;
+      this.mensaje = 'Ese correo ya está registrado por otro usuario.';
+      return;
+    }
+
     const cambios: Record<string, string> = {
       nombre: v.nombre!,
       correo: v.correo!,

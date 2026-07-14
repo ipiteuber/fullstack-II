@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DataService } from '../../services/data';
+import { ProductosApiService } from '../../services/productos-api';
 import { CartService } from '../../services/cart';
 import { Producto } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
-/** Ficha de detalle de un producto. Lee el :id de la ruta y muestra sus datos. */
+/** Ficha de detalle de un producto. Lee el :id de la ruta y busca el producto en la API. */
 @Component({
   selector: 'app-producto-detalle',
   imports: [CommonModule, RouterLink, ClpPipe],
@@ -14,18 +14,22 @@ import { ClpPipe } from '../../pipes/clp-pipe';
 })
 export class ProductoDetalle implements OnInit {
   private route = inject(ActivatedRoute);
-  private data = inject(DataService);
+  protected api = inject(ProductosApiService);
   private cart = inject(CartService);
 
-  producto?: Producto;
+  private idActual = '';
   feedback: { texto: string; tipo: 'ok' | 'err' } | null = null;
 
   ngOnInit(): void {
+    this.api.cargar();
     this.route.paramMap.subscribe((pm) => {
-      const id = pm.get('id') ?? '';
-      this.producto = this.data.productos().find((p) => p.id === id);
+      this.idActual = pm.get('id') ?? '';
       this.feedback = null;
     });
+  }
+
+  get producto(): Producto | undefined {
+    return this.api.productos().find((p) => p.id === this.idActual);
   }
 
   slugCategoria(categoria: string): string {

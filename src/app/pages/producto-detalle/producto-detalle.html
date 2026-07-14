@@ -1,5 +1,7 @@
 <section>
-  <p class="empty-state" *ngIf="!producto">
+  <p class="empty-state" *ngIf="api.cargando()">Cargando producto...</p>
+
+  <p class="empty-state" *ngIf="!api.cargando() && !producto">
     El producto que buscas no existe. <a routerLink="/">Volver al inicio</a>.
   </p>
 

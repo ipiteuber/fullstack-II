@@ -12,7 +12,10 @@
       name="filtro">
   </div>
 
-  <p class="empty-state" *ngIf="productosFiltrados.length === 0">
+  <p class="empty-state" *ngIf="api.cargando()">Cargando catálogo...</p>
+  <p class="form-success show form-success--error" *ngIf="api.error()">{{ api.error() }}</p>
+
+  <p class="empty-state" *ngIf="!api.cargando() && productosFiltrados.length === 0">
     No se encontraron juegos en esta categoría.
   </p>
 

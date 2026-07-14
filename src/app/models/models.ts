@@ -9,6 +9,8 @@ export interface Producto {
   stock: number;
   img: string;
   desc: string;
+  /** Clave del registro en Firebase; se completa al leer desde la API. */
+  fbKey?: string;
 }
 
 export interface Usuario {

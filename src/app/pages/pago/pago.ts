@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { CartService } from '../../services/cart';
+import { ProductosApiService } from '../../services/productos-api';
 import { Orden } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
@@ -17,6 +18,7 @@ export class Pago {
   private fb = inject(FormBuilder);
   protected auth = inject(AuthService);
   protected cart = inject(CartService);
+  private api = inject(ProductosApiService);
 
   mensaje = '';
   ordenExito: Orden | null = null;
@@ -44,5 +46,7 @@ export class Pago {
       return;
     }
     this.ordenExito = r.orden!;
+    // Refleja en Firebase (PUT) el stock descontado por la compra
+    this.api.sincronizarStock(this.ordenExito.items);
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../services/data';
+import { ProductosApiService } from '../../services/productos-api';
 import { CartService } from '../../services/cart';
 import { Producto } from '../../models/models';
 import { GameCard } from '../../components/game-card/game-card';
@@ -16,8 +16,8 @@ const MAPA_CATEGORIAS: Record<string, string> = {
 
 /**
  * Pagina de catalogo por categoria. Lee el parametro de la ruta (categoria/:cat),
- * filtra los productos de esa categoria y los muestra con un buscador en vivo.
- * Cada producto se renderiza con el componente hijo GameCard.
+ * obtiene los productos desde la API REST (GET) y los muestra con un buscador
+ * en vivo. Cada producto se renderiza con el componente hijo GameCard.
  */
 @Component({
   selector: 'app-categoria',
@@ -26,29 +26,33 @@ const MAPA_CATEGORIAS: Record<string, string> = {
 })
 export class Categoria implements OnInit {
   private route = inject(ActivatedRoute);
-  private data = inject(DataService);
+  protected api = inject(ProductosApiService);
   private cart = inject(CartService);
 
   categoriaNombre = '';
-  productos: Producto[] = [];
   filtro = '';
   feedback: { id: string; texto: string; tipo: 'ok' | 'err' } | null = null;
 
   ngOnInit(): void {
+    this.api.cargar();
     this.route.paramMap.subscribe((pm) => {
       const slug = pm.get('cat') ?? '';
       this.categoriaNombre = MAPA_CATEGORIAS[slug] ?? slug;
-      this.productos = this.data.productos().filter((p) => p.categoria === this.categoriaNombre);
       this.filtro = '';
       this.feedback = null;
     });
   }
 
+  /** Productos de la categoria actual, leidos del catalogo remoto. */
+  get productosCategoria(): Producto[] {
+    return this.api.productos().filter((p) => p.categoria === this.categoriaNombre);
+  }
+
   /** Productos visibles segun el texto escrito en el buscador. */
   get productosFiltrados(): Producto[] {
     const q = this.filtro.trim().toLowerCase();
-    if (!q) return this.productos;
-    return this.productos.filter((p) => p.nombre.toLowerCase().includes(q));
+    if (!q) return this.productosCategoria;
+    return this.productosCategoria.filter((p) => p.nombre.toLowerCase().includes(q));
   }
 
   /** Agrega el producto al carrito y muestra el feedback en su ficha. */

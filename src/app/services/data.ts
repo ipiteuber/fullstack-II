@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Producto, Usuario, Orden, CartItem } from '../models/models';
 
-const CATALOGO_INICIAL: Producto[] = [
+export const CATALOGO_INICIAL: Producto[] = [
   { id: 'catan',            nombre: 'Catan',            categoria: 'Estrategia',   precio: 34990, precioOld: null,  stock: 12, img: 'img/juegos/catan.jpg',            desc: 'El clásico de comercio y construcción. Recolecta recursos y domina la isla.' },
   { id: 'carcassonne',      nombre: 'Carcassonne',      categoria: 'Estrategia',   precio: 29990, precioOld: 39990, stock: 8,  img: 'img/juegos/carcassonne.jpg',      desc: 'Coloca losetas y forma ciudades, caminos y monasterios medievales.' },
   { id: 'risk',             nombre: 'Risk',             categoria: 'Estrategia',   precio: 42990, precioOld: null,  stock: 5,  img: 'img/juegos/risk.jpg',             desc: 'Conquista el mundo en este icónico juego de estrategia militar global.' },

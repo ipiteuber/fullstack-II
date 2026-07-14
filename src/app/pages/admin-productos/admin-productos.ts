@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
-import { DataService } from '../../services/data';
+import { ProductosApiService } from '../../services/productos-api';
 import { Producto } from '../../models/models';
 import { ClpPipe } from '../../pipes/clp-pipe';
 
-/** Mantenedor de productos (solo admin): crear, editar y eliminar. */
+/**
+ * Mantenedor de productos (solo admin). Crea, edita y elimina productos
+ * contra la API REST: POST para crear, PUT para actualizar y DELETE para
+ * eliminar. El listado se obtiene con GET.
+ */
 @Component({
   selector: 'app-admin-productos',
   imports: [CommonModule, ReactiveFormsModule, RouterLink, ClpPipe],
@@ -16,11 +20,10 @@ import { ClpPipe } from '../../pipes/clp-pipe';
 export class AdminProductos implements OnInit {
   private fb = inject(FormBuilder);
   protected auth = inject(AuthService);
-  private data = inject(DataService);
+  protected api = inject(ProductosApiService);
 
   readonly categorias = ['Estrategia', 'Cooperativos', 'Cartas', 'Party Games'];
-  productos: Producto[] = [];
-  editId: string | null = null;
+  editando: Producto | null = null;
   mensaje = '';
   esError = false;
 
@@ -38,16 +41,16 @@ export class AdminProductos implements OnInit {
     return this.form.controls;
   }
 
+  get productos(): Producto[] {
+    return this.api.productos();
+  }
+
   get tituloForm(): string {
-    return this.editId ? '// Editando producto' : '// Nuevo producto';
+    return this.editando ? '// Editando producto' : '// Nuevo producto';
   }
 
   ngOnInit(): void {
-    this.refrescar();
-  }
-
-  private refrescar(): void {
-    this.productos = this.data.productos();
+    this.api.cargar();
   }
 
   private generarId(nombre: string): string {
@@ -67,7 +70,7 @@ export class AdminProductos implements OnInit {
   }
 
   editar(p: Producto): void {
-    this.editId = p.id;
+    this.editando = p;
     this.form.patchValue({
       nombre: p.nombre,
       categoria: p.categoria,
@@ -82,7 +85,7 @@ export class AdminProductos implements OnInit {
   }
 
   cancelar(): void {
-    this.editId = null;
+    this.editando = null;
     this.form.reset({ precio: 0, stock: 0, precioOld: null });
     this.mensaje = '';
   }
@@ -93,24 +96,29 @@ export class AdminProductos implements OnInit {
       return;
     }
     const v = this.form.getRawValue();
-    const lista = this.data.productos();
-    let msg: string;
 
-    if (this.editId) {
-      const i = lista.findIndex((p) => p.id === this.editId);
-      if (i !== -1) {
-        lista[i] = {
-          ...lista[i],
-          nombre: v.nombre!,
-          categoria: v.categoria!,
-          precio: Number(v.precio),
-          precioOld: v.precioOld ? Number(v.precioOld) : null,
-          stock: Number(v.stock),
-          img: v.img || lista[i].img,
-          desc: v.desc!,
-        };
-      }
-      msg = 'Producto actualizado.';
+    // El precio anterior solo tiene sentido si es mayor al precio actual
+    if (v.precioOld && Number(v.precioOld) <= Number(v.precio)) {
+      this.esError = true;
+      this.mensaje = 'El precio anterior debe ser mayor al precio actual de la oferta.';
+      return;
+    }
+
+    if (this.editando) {
+      const actualizado: Producto = {
+        ...this.editando,
+        nombre: v.nombre!,
+        categoria: v.categoria!,
+        precio: Number(v.precio),
+        precioOld: v.precioOld ? Number(v.precioOld) : null,
+        stock: Number(v.stock),
+        img: v.img || this.editando.img,
+        desc: v.desc!,
+      };
+      this.api.actualizar(actualizado).subscribe({
+        next: () => this.exito('Producto actualizado.'),
+        error: () => this.fallo('No se pudo actualizar el producto en la API.'),
+      });
     } else {
       const nuevoId = this.generarId(v.nombre!);
       const nuevo: Producto = {
@@ -123,23 +131,32 @@ export class AdminProductos implements OnInit {
         img: v.img || 'img/juegos/' + nuevoId + '.jpg',
         desc: v.desc!,
       };
-      lista.push(nuevo);
-      msg = 'Producto agregado.';
+      this.api.crear(nuevo).subscribe({
+        next: () => this.exito('Producto agregado.'),
+        error: () => this.fallo('No se pudo crear el producto en la API.'),
+      });
     }
+  }
 
-    this.data.guardarProductos(lista);
-    this.refrescar();
+  eliminar(p: Producto): void {
+    this.api.eliminar(p).subscribe({
+      next: () => {
+        if (this.editando?.id === p.id) this.cancelar();
+        this.exito('Producto eliminado.');
+      },
+      error: () => this.fallo('No se pudo eliminar el producto en la API.'),
+    });
+  }
+
+  private exito(msg: string): void {
     this.cancelar();
     this.esError = false;
     this.mensaje = msg;
+    this.api.cargar(true);
   }
 
-  eliminar(id: string): void {
-    const lista = this.data.productos().filter((p) => p.id !== id);
-    this.data.guardarProductos(lista);
-    this.refrescar();
-    this.esError = false;
-    this.mensaje = 'Producto eliminado.';
-    if (this.editId === id) this.cancelar();
+  private fallo(msg: string): void {
+    this.esError = true;
+    this.mensaje = msg;
   }
 }

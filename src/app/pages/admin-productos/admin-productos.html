@@ -7,6 +7,10 @@
   </div>
 
   <ng-container *ngIf="auth.esAdmin()">
+    <p class="form-success show form-success--error" *ngIf="api.modoLocal">
+      Modo local: configura la URL de Firebase en src/app/services/api.config.ts para usar la API REST.
+    </p>
+
     <form class="register-card" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
       <h3>{{ tituloForm }}</h3>
 
@@ -61,7 +65,7 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">{{ editId ? 'Guardar cambios' : 'Agregar producto' }}</button>
+        <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">{{ editando ? 'Guardar cambios' : 'Agregar producto' }}</button>
         <button type="button" class="btn-neon btn-neon--ghost" (click)="cancelar()">Cancelar</button>
       </div>
     </form>
@@ -80,7 +84,7 @@
             <td>{{ p.stock }}</td>
             <td>
               <button type="button" class="btn-mini btn-mini--ok" (click)="editar(p)">Editar</button>
-              <button type="button" class="btn-mini" (click)="eliminar(p.id)">Eliminar</button>
+              <button type="button" class="btn-mini" (click)="eliminar(p)">Eliminar</button>
             </td>
           </tr>
         </tbody>
