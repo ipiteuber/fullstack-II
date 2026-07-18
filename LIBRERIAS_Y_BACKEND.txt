@@ -1,0 +1,72 @@
+========================================================================
+ LINK START! - LIBRERIAS ADICIONALES, DOCUMENTACION Y BACKEND (JSON)
+ Evaluacion Final Transversal - DSY2202
+========================================================================
+
+------------------------------------------------------------------------
+ 1. LIBRERIAS ADICIONALES INSTALADAS
+------------------------------------------------------------------------
+
+ bootstrap (5.3)
+   Framework CSS usado para la grilla responsive de 12 columnas y los
+   componentes de layout. Se integra desde angular.json (styles y
+   scripts), no por CDN, para que la aplicacion funcione sin conexion
+   y dentro del contenedor Docker.
+
+ @compodoc/compodoc (dev)
+   Libreria que genera la documentacion tecnica del proyecto a partir
+   de los comentarios del codigo (componentes, servicios, pipes,
+   validadores y rutas).
+
+ El resto de las dependencias son las propias de Angular 20
+ (@angular/core, forms, router, common/http, etc.) y las herramientas
+ de pruebas que trae el CLI (Jasmine y Karma).
+
+------------------------------------------------------------------------
+ 2. DOCUMENTACION GENERADA
+------------------------------------------------------------------------
+
+ La documentacion se genera con Compodoc usando los scripts del
+ package.json:
+
+   npm run compodoc          -> Genera la carpeta /documentation
+   npm run compodoc:serve    -> La genera y la abre en el navegador
+
+ La configuracion esta en tsconfig.doc.json. La documentacion cubre los
+ modulos, componentes, servicios (DataService, AuthService, CartService,
+ ProductosApiService, NovedadesService), pipes, guards, validadores y
+ las rutas de la aplicacion.
+
+------------------------------------------------------------------------
+ 3. ELEMENTOS BACKEND CONSUMIDOS (JSON)
+------------------------------------------------------------------------
+
+ a) Catalogo de productos - API REST en Firebase Realtime Database
+    Servicio: src/app/services/productos-api.ts
+    Configuracion de la URL: src/app/services/api.config.ts
+    Datos de ejemplo para importar: firebase-seed.json
+
+    Endpoint base:  https://<proyecto>-default-rtdb.firebaseio.com
+
+    | Metodo | Endpoint                    | Uso en la aplicacion        |
+    |--------|-----------------------------|-----------------------------|
+    | GET    | /productos.json             | Catalogo, detalle, admin    |
+    | POST   | /productos.json             | Crear producto (mantenedor) |
+    | PUT    | /productos/{clave}.json     | Editar producto y stock     |
+    | DELETE | /productos/{clave}.json     | Eliminar producto           |
+
+    El stock tambien se actualiza via PUT al confirmar una compra.
+    Si la base esta vacia, la aplicacion la siembra automaticamente.
+
+ b) Novedades y eventos - archivos JSON locales servidos por HTTP
+    Servicio: src/app/services/novedades.ts
+    Archivos: public/data/novedades.json y public/data/eventos.json
+    Se consumen con HttpClient (GET) y alimentan las paginas
+    /novedades y /novedades/:id.
+
+ c) Datos de sesion, usuarios, carrito y ordenes
+    Se manejan en el navegador (localStorage y sessionStorage) a traves
+    de DataService, como cache local de la aplicacion. No se guarda
+    informacion de medios de pago, tal como pide la actividad.
+
+
