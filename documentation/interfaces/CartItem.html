@@ -378,6 +378,8 @@
   stock: number;
   img: string;
   desc: string;
+  /** Clave del registro en Firebase; se completa al leer desde la API. */
+  fbKey?: string;
 }
 
 export interface Usuario {
@@ -407,6 +409,25 @@ export interface Orden {
 }
 
 export type Resultado&lt;T&gt; &#x3D; { ok: true; valor: T } | { ok: false; error: string };
+
+// Datos consumidos desde archivos JSON (novedades y eventos)
+export interface Novedad {
+  id: string;
+  titulo: string;
+  fecha: string;
+  autor: string;
+  imagen: string;
+  resumen: string;
+  contenido: string;
+}
+
+export interface Evento {
+  id: string;
+  nombre: string;
+  fecha: string;
+  lugar: string;
+  descripcion: string;
+}
 </code></pre>
     </div>
 </div>

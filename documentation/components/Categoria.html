@@ -143,8 +143,8 @@
     </p>
     <p class="comment">
         <p>Pagina de catalogo por categoria. Lee el parametro de la ruta (categoria/:cat),
-filtra los productos de esa categoria y los muestra con un buscador en vivo.
-Cada producto se renderiza con el componente hijo GameCard.</p>
+obtiene los productos desde la API REST (GET) y los muestra con un buscador
+en vivo. Cada producto se renderiza con el componente hijo GameCard.</p>
 
     </p>
 
@@ -220,6 +220,10 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#api" >api</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#cart" >cart</a>
                             </li>
@@ -227,17 +231,10 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
                                 <a href="#categoriaNombre" >categoriaNombre</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#data" >data</a>
-                            </li>
-                            <li>
                                 <a href="#feedback" >feedback</a>
                             </li>
                             <li>
                                 <a href="#filtro" >filtro</a>
-                            </li>
-                            <li>
-                                <a href="#productos" >productos</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
@@ -278,6 +275,9 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                    <a href="#productosCategoria" >productosCategoria</a>
+                                </li>
+                                <li>
                                     <a href="#productosFiltrados" >productosFiltrados</a>
                                 </li>
                             </ul>
@@ -317,8 +317,8 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -386,8 +386,8 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/app/pages/categoria/categoria.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -409,6 +409,38 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
     <h3 id="inputs">
         Properties
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="api"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>api</b></span>
+                        <a href="#api"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ProductosApiService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/categoria/categoria.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -476,38 +508,6 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="data"></a>
-                    <span class="name">
-                            <span class="modifier">Private</span>
-                        <span ><b>data</b></span>
-                        <a href="#data"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>unknown</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>inject(DataService)</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/categoria/categoria.ts:29</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="feedback"></a>
                     <span class="name">
                         <span ><b>feedback</b></span>
@@ -528,7 +528,7 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/categoria/categoria.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/categoria/categoria.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -555,37 +555,6 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>&#x27;&#x27;</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/categoria/categoria.ts:34</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="productos"></a>
-                    <span class="name">
-                        <span ><b>productos</b></span>
-                        <a href="#productos"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
@@ -639,6 +608,39 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="productosCategoria"></a>
+                        <span class="name"><b>productosCategoria</b><a href="#productosCategoria"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>productosCategoria()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/categoria/categoria.ts:47</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Productos de la categoria actual, leidos del catalogo remoto.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/Producto.html" target="_self" >Producto[]</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="productosFiltrados"></a>
                         <span class="name"><b>productosFiltrados</b><a href="#productosFiltrados"><span class="icon ion-ios-link"></span></a></span>
                     </td>
@@ -651,7 +653,7 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/categoria/categoria.ts:48</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/categoria/categoria.ts:52</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -677,7 +679,7 @@ Cada producto se renderiza con el componente hijo GameCard.</p>
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
 import { ActivatedRoute } from &#x27;@angular/router&#x27;;
-import { DataService } from &#x27;../../services/data&#x27;;
+import { ProductosApiService } from &#x27;../../services/productos-api&#x27;;
 import { CartService } from &#x27;../../services/cart&#x27;;
 import { Producto } from &#x27;../../models/models&#x27;;
 import { GameCard } from &#x27;../../components/game-card/game-card&#x27;;
@@ -691,8 +693,8 @@ const MAPA_CATEGORIAS: Record&lt;string, string&gt; &#x3D; {
 
 /**
  * Pagina de catalogo por categoria. Lee el parametro de la ruta (categoria/:cat),
- * filtra los productos de esa categoria y los muestra con un buscador en vivo.
- * Cada producto se renderiza con el componente hijo GameCard.
+ * obtiene los productos desde la API REST (GET) y los muestra con un buscador
+ * en vivo. Cada producto se renderiza con el componente hijo GameCard.
  */
 @Component({
   selector: &#x27;app-categoria&#x27;,
@@ -701,29 +703,33 @@ const MAPA_CATEGORIAS: Record&lt;string, string&gt; &#x3D; {
 })
 export class Categoria implements OnInit {
   private route &#x3D; inject(ActivatedRoute);
-  private data &#x3D; inject(DataService);
+  protected api &#x3D; inject(ProductosApiService);
   private cart &#x3D; inject(CartService);
 
   categoriaNombre &#x3D; &#x27;&#x27;;
-  productos: Producto[] &#x3D; [];
   filtro &#x3D; &#x27;&#x27;;
   feedback: { id: string; texto: string; tipo: &#x27;ok&#x27; | &#x27;err&#x27; } | null &#x3D; null;
 
   ngOnInit(): void {
+    this.api.cargar();
     this.route.paramMap.subscribe((pm) &#x3D;&gt; {
       const slug &#x3D; pm.get(&#x27;cat&#x27;) ?? &#x27;&#x27;;
       this.categoriaNombre &#x3D; MAPA_CATEGORIAS[slug] ?? slug;
-      this.productos &#x3D; this.data.productos().filter((p) &#x3D;&gt; p.categoria &#x3D;&#x3D;&#x3D; this.categoriaNombre);
       this.filtro &#x3D; &#x27;&#x27;;
       this.feedback &#x3D; null;
     });
   }
 
+  /** Productos de la categoria actual, leidos del catalogo remoto. */
+  get productosCategoria(): Producto[] {
+    return this.api.productos().filter((p) &#x3D;&gt; p.categoria &#x3D;&#x3D;&#x3D; this.categoriaNombre);
+  }
+
   /** Productos visibles segun el texto escrito en el buscador. */
   get productosFiltrados(): Producto[] {
     const q &#x3D; this.filtro.trim().toLowerCase();
-    if (!q) return this.productos;
-    return this.productos.filter((p) &#x3D;&gt; p.nombre.toLowerCase().includes(q));
+    if (!q) return this.productosCategoria;
+    return this.productosCategoria.filter((p) &#x3D;&gt; p.nombre.toLowerCase().includes(q));
   }
 
   /** Agrega el producto al carrito y muestra el feedback en su ficha. */
@@ -753,7 +759,10 @@ export class Categoria implements OnInit {
       name&#x3D;&quot;filtro&quot;&gt;
   &lt;/div&gt;
 
-  &lt;p class&#x3D;&quot;empty-state&quot; *ngIf&#x3D;&quot;productosFiltrados.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+  &lt;p class&#x3D;&quot;empty-state&quot; *ngIf&#x3D;&quot;api.cargando()&quot;&gt;Cargando catálogo...&lt;/p&gt;
+  &lt;p class&#x3D;&quot;form-success show form-success--error&quot; *ngIf&#x3D;&quot;api.error()&quot;&gt;{{ api.error() }}&lt;/p&gt;
+
+  &lt;p class&#x3D;&quot;empty-state&quot; *ngIf&#x3D;&quot;!api.cargando() &amp;&amp; productosFiltrados.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
     No se encontraron juegos en esta categoría.
   &lt;/p&gt;
 
@@ -796,8 +805,8 @@ export class Categoria implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><section>  <h2 class="section-title">{{ categoriaNombre }}</h2>  <div class="catalogo-buscador">    <label class="form-label" for="buscar">Buscar juego</label>    <input      id="buscar"      type="text"      class="form-control"      placeholder="Escribe un nombre..."      [(ngModel)]="filtro"      name="filtro">  </div>  <p class="empty-state" *ngIf="productosFiltrados.length === 0">    No se encontraron juegos en esta categoría.  </p>  <div class="games-grid row g-4">    <div class="col-12 col-md-6 col-lg-4" *ngFor="let prod of productosFiltrados">      <app-game-card        [producto]="prod"        [feedback]="feedback && feedback.id === prod.id ? { texto: feedback.texto, tipo: feedback.tipo } : null"        (agregar)="agregar($event)">      </app-game-card>    </div>  </div></section></div>'
-    var COMPONENTS = [{'name': 'AdminInventario', 'selector': 'app-admin-inventario'},{'name': 'AdminProductos', 'selector': 'app-admin-productos'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'GameCard', 'selector': 'app-game-card'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'MisCompras', 'selector': 'app-mis-compras'},{'name': 'Nav', 'selector': 'app-nav'},{'name': 'Pago', 'selector': 'app-pago'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoDetalle', 'selector': 'app-producto-detalle'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><section>  <h2 class="section-title">{{ categoriaNombre }}</h2>  <div class="catalogo-buscador">    <label class="form-label" for="buscar">Buscar juego</label>    <input      id="buscar"      type="text"      class="form-control"      placeholder="Escribe un nombre..."      [(ngModel)]="filtro"      name="filtro">  </div>  <p class="empty-state" *ngIf="api.cargando()">Cargando catálogo...</p>  <p class="form-success show form-success--error" *ngIf="api.error()">{{ api.error() }}</p>  <p class="empty-state" *ngIf="!api.cargando() && productosFiltrados.length === 0">    No se encontraron juegos en esta categoría.  </p>  <div class="games-grid row g-4">    <div class="col-12 col-md-6 col-lg-4" *ngFor="let prod of productosFiltrados">      <app-game-card        [producto]="prod"        [feedback]="feedback && feedback.id === prod.id ? { texto: feedback.texto, tipo: feedback.tipo } : null"        (agregar)="agregar($event)">      </app-game-card>    </div>  </div></section></div>'
+    var COMPONENTS = [{'name': 'AdminInventario', 'selector': 'app-admin-inventario'},{'name': 'AdminProductos', 'selector': 'app-admin-productos'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'GameCard', 'selector': 'app-game-card'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'MisCompras', 'selector': 'app-mis-compras'},{'name': 'Nav', 'selector': 'app-nav'},{'name': 'NovedadDetalle', 'selector': 'app-novedad-detalle'},{'name': 'Novedades', 'selector': 'app-novedades'},{'name': 'Pago', 'selector': 'app-pago'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoDetalle', 'selector': 'app-producto-detalle'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Categoria'};
 </script>

@@ -130,10 +130,22 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#adminGuard" title="src/app/guards.ts" ><b>adminGuard</b>&nbsp;&nbsp;&nbsp;(src/.../guards.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#API_URL" title="src/app/services/api.config.ts" ><b>API_URL</b>&nbsp;&nbsp;&nbsp;(src/.../api.config.ts)</a>
+                        </li>
+                        <li>
                             <a href="#appConfig" title="src/app/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
                         </li>
                         <li>
+                            <a href="#authGuard" title="src/app/guards.ts" ><b>authGuard</b>&nbsp;&nbsp;&nbsp;(src/.../guards.ts)</a>
+                        </li>
+                        <li>
                             <a href="#CATALOGO_INICIAL" title="src/app/services/data.ts" ><b>CATALOGO_INICIAL</b>&nbsp;&nbsp;&nbsp;(src/.../data.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FIREBASE_URL" title="src/app/services/api.config.ts" ><b>FIREBASE_URL</b>&nbsp;&nbsp;&nbsp;(src/.../api.config.ts)</a>
                         </li>
                         <li>
                             <a href="#MAPA_CATEGORIAS" title="src/app/pages/categoria/categoria.ts" ><b>MAPA_CATEGORIAS</b>&nbsp;&nbsp;&nbsp;(src/.../categoria.ts)</a>
@@ -151,6 +163,144 @@
     </table>
 </section>
 
+    <h3>src/app/guards.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="adminGuard"></a>
+                    <span class="name">
+                        <span ><b>adminGuard</b></span>
+                        <a href="#adminGuard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(_route, state) &#x3D;&gt; {
+  const auth &#x3D; inject(AuthService);
+  const router &#x3D; inject(Router);
+  if (auth.esAdmin()) return true;
+  if (auth.estaLogueado()) return router.createUrlTree([&#x27;/&#x27;]);
+  return router.createUrlTree([&#x27;/login&#x27;], { queryParams: { volverA: state.url } });
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Protege las rutas exclusivas del administrador (mantenedores).
+Un cliente con sesion vuelve al inicio; un visitante va al login.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authGuard"></a>
+                    <span class="name">
+                        <span ><b>authGuard</b></span>
+                        <a href="#authGuard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(_route, state) &#x3D;&gt; {
+  const auth &#x3D; inject(AuthService);
+  const router &#x3D; inject(Router);
+  if (auth.estaLogueado()) return true;
+  return router.createUrlTree([&#x27;/login&#x27;], { queryParams: { volverA: state.url } });
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Protege las rutas que requieren sesion iniciada (perfil, pago, mis compras).
+Guarda la ruta original en volverA para retomarla despues del login.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/services/api.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="API_URL"></a>
+                    <span class="name">
+                        <span ><b>API_URL</b></span>
+                        <a href="#API_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new InjectionToken&lt;string&gt;(&#x27;API_URL&#x27;, {
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; FIREBASE_URL,
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FIREBASE_URL"></a>
+                    <span class="name">
+                        <span ><b>FIREBASE_URL</b></span>
+                        <a href="#FIREBASE_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;https://linkstart-16abd-default-rtdb.firebaseio.com&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
     <h3>src/app/app.config.ts</h3>
     <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -176,7 +326,8 @@
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes),
+    provideHttpClient()
   ]
 }</code>
                     </td>
@@ -321,15 +472,17 @@
   { path: &#x27;&#x27;, component: Home, title: &#x27;Link Start!&#x27; },
   { path: &#x27;categoria/:cat&#x27;, component: Categoria, title: &#x27;Categoría - Link Start!&#x27; },
   { path: &#x27;producto/:id&#x27;, component: ProductoDetalle, title: &#x27;Producto - Link Start!&#x27; },
+  { path: &#x27;novedades&#x27;, component: Novedades, title: &#x27;Novedades - Link Start!&#x27; },
+  { path: &#x27;novedades/:id&#x27;, component: NovedadDetalle, title: &#x27;Novedad - Link Start!&#x27; },
   { path: &#x27;login&#x27;, component: Login, title: &#x27;Ingresar - Link Start!&#x27; },
   { path: &#x27;registro&#x27;, component: Registro, title: &#x27;Registro - Link Start!&#x27; },
   { path: &#x27;recuperar&#x27;, component: Recuperar, title: &#x27;Recuperar contraseña - Link Start!&#x27; },
-  { path: &#x27;perfil&#x27;, component: Perfil, title: &#x27;Mi perfil - Link Start!&#x27; },
+  { path: &#x27;perfil&#x27;, component: Perfil, canActivate: [authGuard], title: &#x27;Mi perfil - Link Start!&#x27; },
   { path: &#x27;carrito&#x27;, component: Carrito, title: &#x27;Carrito - Link Start!&#x27; },
-  { path: &#x27;pago&#x27;, component: Pago, title: &#x27;Pago - Link Start!&#x27; },
-  { path: &#x27;mis-compras&#x27;, component: MisCompras, title: &#x27;Mis compras - Link Start!&#x27; },
-  { path: &#x27;admin/productos&#x27;, component: AdminProductos, title: &#x27;Productos - Link Start!&#x27; },
-  { path: &#x27;admin/inventario&#x27;, component: AdminInventario, title: &#x27;Inventario - Link Start!&#x27; },
+  { path: &#x27;pago&#x27;, component: Pago, canActivate: [authGuard], title: &#x27;Pago - Link Start!&#x27; },
+  { path: &#x27;mis-compras&#x27;, component: MisCompras, canActivate: [authGuard], title: &#x27;Mis compras - Link Start!&#x27; },
+  { path: &#x27;admin/productos&#x27;, component: AdminProductos, canActivate: [adminGuard], title: &#x27;Productos - Link Start!&#x27; },
+  { path: &#x27;admin/inventario&#x27;, component: AdminInventario, canActivate: [adminGuard], title: &#x27;Inventario - Link Start!&#x27; },
   { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27; },
 ]</code>
                     </td>

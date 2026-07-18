@@ -100,8 +100,10 @@
 <h1>Link Start!</h1>
 <p>Aplicacion FrontEnd de una tienda de juegos de mesa con dos roles de usuario
 (cliente y administrador), registro e inicio de sesion, carrito de compras,
-pago simulado y mantenedores de productos e inventario. Los datos se guardan
-en el navegador mediante localStorage.</p>
+pago simulado y mantenedores de productos e inventario. El catalogo de
+productos se consume desde una API REST en Firebase (GET, POST, PUT y DELETE)
+y las cuentas, el carrito y las ordenes se guardan en el navegador mediante
+localStorage.</p>
 <h2>Requisitos</h2>
 <ul>
 <li>Node.js 22 o 24 LTS (funciona tambien en versiones mas nuevas).</li>
@@ -115,6 +117,46 @@ en el navegador mediante localStorage.</p>
 <li>Usuario: <code>admin</code></li>
 <li>Contrasena: <code>Admin#2026</code></li>
 </ul>
+<h2>API REST con Firebase</h2>
+<p>El catalogo de productos se consume desde una Realtime Database de Firebase
+usando los cuatro metodos HTTP:</p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Metodo</th>
+<th>Uso en la aplicacion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>Cargar el catalogo (home, categorias, detalle, mantenedores)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Crear un producto nuevo desde el mantenedor</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>Editar productos, actualizar stock y descontar stock al comprar</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Eliminar un producto desde el mantenedor</td>
+</tr>
+</tbody>
+</table>
+<p>Para conectar tu propia base:</p>
+<ol>
+<li>En Firebase console crea un proyecto y una <strong>Realtime Database</strong> en modo prueba.</li>
+<li>Copia la URL de la base (algo como <code>https://mi-proyecto-default-rtdb.firebaseio.com</code>).</li>
+<li>Pegala en <code>src/app/services/api.config.ts</code> (constante <code>FIREBASE_URL</code>).</li>
+<li>(Opcional) Importa <code>firebase-seed.json</code> desde la consola de Firebase para
+precargar el catalogo. Si la base esta vacia, la propia aplicacion la
+siembra automaticamente la primera vez.</li>
+</ol>
+<p>Mientras la URL no este configurada, la aplicacion trabaja en modo local
+(localStorage) para poder desarrollarla sin conexion.</p>
 <h2>Pruebas unitarias</h2>
 <p>Se ejecutan con Jasmine y Karma:</p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm test</code></pre></div><h2>Documentacion del codigo</h2>
@@ -122,11 +164,19 @@ en el navegador mediante localStorage.</p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run compodoc          # Genera la documentacion en /documentation
 npm run compodoc:serve    # La genera y la abre en navegador</code></pre></div><h2>Build de produccion</h2>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run build</code></pre></div><p>Los archivos quedan en la carpeta <code>dist/</code>.</p>
-<h2>Estructura del proyecto</h2>
+<h2>Docker</h2>
+<p>El proyecto incluye un <code>Dockerfile</code> (build de Angular + servidor nginx):</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">docker build -t mtduoc17/linkstart-angular:1.0 .
+docker run -d -p 8080:80 mtduoc17/linkstart-angular:1.0</code></pre></div><p>Luego abrir <code>http://localhost:8080/</code>. Para publicar la imagen en Docker Hub:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">docker login
+docker push mtduoc17/linkstart-angular:1.0</code></pre></div><h2>Estructura del proyecto</h2>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-none">linkstart-angular/
 ├── angular.json                      # Configuracion de Angular (Bootstrap, build, test)
 ├── package.json                      # Dependencias y scripts (start, test, compodoc, build)
 ├── tsconfig.doc.json                 # Configuracion de Compodoc
+├── Dockerfile                        # Imagen Docker (build Angular + nginx)
+├── nginx.conf                        # Configuracion del servidor dentro del contenedor
+├── firebase-seed.json                # Catalogo inicial para importar en Firebase
 ├── README.md
 ├── src/
 │   ├── index.html                    # Pagina raiz, fuentes y &lt;app-root&gt;
@@ -134,9 +184,10 @@ npm run compodoc:serve    # La genera y la abre en navegador</code></pre></div><
 │   ├── styles.css                    # Estilos globales (variables, animaciones, tema neon)
 │   └── app/
 │       ├── app.ts                    # Componente raiz (nav + router-outlet + footer)
-│       ├── app.routes.ts             # Rutas (incluye categoria/:cat y producto/:id)
-│       ├── app.config.ts             # Providers (router, deteccion de cambios)
+│       ├── app.routes.ts             # Rutas (categoria/:cat, producto/:id, novedades/:id)
+│       ├── app.config.ts             # Providers (router, HttpClient)
 │       ├── app.spec.ts               # Prueba unitaria del componente raiz
+│       ├── guards.ts                 # authGuard y adminGuard para proteger rutas
 │       ├── components/
 │       │   ├── nav/                  # Menu dinamico segun sesion y rol
 │       │   └── game-card/            # Ficha de juego (hijo, recibe datos por &#64;Input)
@@ -144,6 +195,8 @@ npm run compodoc:serve    # La genera y la abre en navegador</code></pre></div><
 │       │   ├── home/                 # Pagina principal con las 4 categorias
 │       │   ├── categoria/            # Catalogo por categoria (buscador con ngModel)
 │       │   ├── producto-detalle/     # Ficha de un producto (ruta producto/:id)
+│       │   ├── novedades/            # Noticias y eventos leidos desde JSON
+│       │   ├── novedad-detalle/      # Detalle de una novedad (ruta novedades/:id)
 │       │   ├── login/                # Inicio de sesion
 │       │   ├── registro/             # Registro de usuarios (+ registro.spec.ts)
 │       │   ├── recuperar/            # Recuperar contraseña
@@ -154,17 +207,24 @@ npm run compodoc:serve    # La genera y la abre en navegador</code></pre></div><
 │       │   ├── admin-productos/      # Mantenedor de productos (solo admin)
 │       │   └── admin-inventario/     # Control de stock (solo admin)
 │       ├── services/
-│       │   ├── data.ts               # Capa de datos y seed en localStorage
+│       │   ├── api.config.ts         # URL de Firebase (unico punto de configuracion)
+│       │   ├── productos-api.ts      # API REST del catalogo (GET, POST, PUT, DELETE)
+│       │   ├── productos-api.spec.ts # Pruebas de los 4 metodos HTTP
+│       │   ├── data.ts               # Cache local y seed en localStorage
 │       │   ├── auth.ts               # Registro, login, sesion, roles y perfil
 │       │   ├── auth.spec.ts          # Pruebas unitarias de AuthService
 │       │   ├── cart.ts               # Logica del carrito y ordenes
-│       │   └── cart.spec.ts          # Pruebas unitarias de CartService
+│       │   ├── cart.spec.ts          # Pruebas unitarias de CartService
+│       │   └── novedades.ts          # Consume los JSON de novedades y eventos
 │       ├── pipes/
 │       │   └── clp-pipe.ts           # Formato de precio chileno ($34.990)
 │       ├── models/
 │       │   └── models.ts             # Interfaces de datos (Producto, Usuario, etc.)
 │       └── validators.ts             # Validadores personalizados (contraseña, edad)
 └── public/
+    ├── data/
+    │   ├── novedades.json            # Noticias consumidas por HttpClient
+    │   └── eventos.json              # Eventos consumidos por HttpClient
     └── img/
         ├── categorias/               # 4 imagenes (una por categoria)
         └── juegos/                   # 12 imagenes (una por juego)</code></pre></div><h2>Roles y cuenta de prueba</h2>
@@ -178,7 +238,17 @@ npm run compodoc:serve    # La genera y la abre en navegador</code></pre></div><
 <li>Usuario: <code>admin</code></li>
 <li>Contraseña: <code>Admin#2026</code></li>
 </ul>
-<h2>Los usuarios que se registran desde el formulario quedan con rol cliente.</h2>
+<p>Los usuarios que se registran desde el formulario quedan con rol cliente.</p>
+<h2>Flujo recomendado para probar la app</h2>
+<ol>
+<li>Iniciar sesion como <code>admin</code> / <code>Admin#2026</code>.</li>
+<li>Crear un producto nuevo en el mantenedor (POST a la API) y editarlo (PUT).</li>
+<li>Cerrar sesion y registrarse como cliente nuevo.</li>
+<li>Agregar productos al carrito desde una categoria.</li>
+<li>Finalizar la compra con el pago simulado (descuenta stock via PUT).</li>
+<li>Revisar la orden en &quot;Mis compras&quot;.</li>
+<li>Volver a entrar como admin y verificar el stock descontado en Inventario.</li>
+</ol>
 
 
 

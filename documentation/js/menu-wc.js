@@ -87,6 +87,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="components/Nav.html" data-type="entity-link" >Nav</a>
                             </li>
                             <li class="link">
+                                <a href="components/NovedadDetalle.html" data-type="entity-link" >NovedadDetalle</a>
+                            </li>
+                            <li class="link">
+                                <a href="components/Novedades.html" data-type="entity-link" >Novedades</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/Pago.html" data-type="entity-link" >Pago</a>
                             </li>
                             <li class="link">
@@ -120,6 +126,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <li class="link">
                                     <a href="injectables/DataService.html" data-type="entity-link" >DataService</a>
                                 </li>
+                                <li class="link">
+                                    <a href="injectables/NovedadesService.html" data-type="entity-link" >NovedadesService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/ProductosApiService.html" data-type="entity-link" >ProductosApiService</a>
+                                </li>
                             </ul>
                         </li>
                     <li class="chapter">
@@ -135,6 +147,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/DatosRegistro.html" data-type="entity-link" >DatosRegistro</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/Evento.html" data-type="entity-link" >Evento</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/Novedad.html" data-type="entity-link" >Novedad</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Orden.html" data-type="entity-link" >Orden</a>

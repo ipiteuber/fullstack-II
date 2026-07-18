@@ -315,8 +315,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="80"
-                                    class="link-to-prism">src/app/pages/perfil/perfil.ts:80</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="89"
+                                    class="link-to-prism">src/app/pages/perfil/perfil.ts:89</a></div>
                         </td>
                     </tr>
 
@@ -704,6 +704,15 @@ export class Perfil implements OnInit {
     const u &#x3D; this.auth.sesion();
     if (!u) return;
     const v &#x3D; this.form.getRawValue();
+
+    // El correo nuevo no puede pertenecer a otra cuenta
+    const duenoCorreo &#x3D; this.auth.buscarPorCorreo(v.correo!);
+    if (duenoCorreo &amp;&amp; duenoCorreo.usuario.toLowerCase() !&#x3D;&#x3D; u.usuario.toLowerCase()) {
+      this.esError &#x3D; true;
+      this.mensaje &#x3D; &#x27;Ese correo ya está registrado por otro usuario.&#x27;;
+      return;
+    }
+
     const cambios: Record&lt;string, string&gt; &#x3D; {
       nombre: v.nombre!,
       correo: v.correo!,
@@ -835,7 +844,7 @@ export class Perfil implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><section class="form-wrap">  <div class="guard-msg" *ngIf="!auth.estaLogueado()">    <p>Debes iniciar sesión para ver tu perfil.</p>    <a class="btn-neon btn-neon--primary" routerLink="/login">Ir a iniciar sesión</a>  </div>  <form class="register-card" *ngIf="auth.estaLogueado()" [formGroup]="form" (ngSubmit)="enviar()" novalidate>    <h2 class="section-title">Mi perfil</h2>    <p>      Rol:      <span class="role-badge" [class.role-badge--admin]="auth.esAdmin()">        {{ auth.esAdmin() ? \'Admin\' : \'Cliente\' }}      </span>    </p>    <p class="form-success show" [class.form-success--error]="esError" *ngIf="mensaje">{{ mensaje }}</p>    <div class="form-field">      <label class="form-label" for="nombre">Nombre completo *</label>      <input id="nombre" type="text" class="form-control" formControlName="nombre"        [class.is-invalid]="f.nombre.invalid && f.nombre.touched">      <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.[\'required\']">!! El nombre es obligatorio.</p>      <p class="field-error show" *ngIf="f.nombre.touched && f.nombre.errors?.[\'minlength\']">!! Debe tener al menos 3 caracteres.</p>    </div>    <div class="form-field">      <label class="form-label" for="usuario">Nombre de usuario</label>      <input id="usuario" type="text" class="form-control" formControlName="usuario">    </div>    <div class="form-field">      <label class="form-label" for="correo">Correo electrónico *</label>      <input id="correo" type="email" class="form-control" formControlName="correo"        [class.is-invalid]="f.correo.invalid && f.correo.touched">      <p class="field-error show" *ngIf="f.correo.touched && f.correo.errors?.[\'required\']">!! El correo es obligatorio.</p>      <p class="field-error show" *ngIf="f.correo.touched && f.correo.errors?.[\'email\']">!! El formato del correo no es válido.</p>    </div>    <div class="form-field">      <label class="form-label" for="fechaNac">Fecha de nacimiento *</label>      <input id="fechaNac" type="date" class="form-control" formControlName="fechaNac"        [class.is-invalid]="f.fechaNac.invalid && f.fechaNac.touched">      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.[\'required\']">!! La fecha de nacimiento es obligatoria.</p>      <p class="field-error show" *ngIf="f.fechaNac.touched && f.fechaNac.errors?.[\'edadMinima\']">!! Debes tener al menos 13 años.</p>    </div>    <div class="form-field">      <label class="form-label" for="direccion">Dirección de despacho (opcional)</label>      <input id="direccion" type="text" class="form-control" formControlName="direccion">    </div>    <div class="form-field">      <label class="form-label" for="password">Nueva contraseña (opcional)</label>      <input id="password" type="password" class="form-control" formControlName="password"        [class.is-invalid]="f.password.invalid && f.password.touched">      <p class="field-error show" *ngIf="f.password.touched && (f.password.errors?.[\'minlength\'] || f.password.errors?.[\'maxlength\'])">!! Debe tener entre 6 y 18 caracteres.</p>      <p class="field-error show" *ngIf="f.password.touched && f.password.errors?.[\'complejidad\']">!! Debe incluir mayúscula, minúscula, número y carácter especial.</p>    </div>    <div class="form-field">      <label class="form-label" for="password2">Repetir nueva contraseña</label>      <input id="password2" type="password" class="form-control" formControlName="password2"        [class.is-invalid]="f.password2.touched && form.errors?.[\'noCoinciden\']">      <p class="field-error show" *ngIf="f.password2.touched && form.errors?.[\'noCoinciden\']">!! Las contraseñas no coinciden.</p>    </div>    <div class="form-actions">      <button type="submit" class="btn-neon btn-neon--primary" [disabled]="form.invalid">Guardar cambios</button>      <button type="button" class="btn-neon btn-neon--ghost" (click)="cerrarSesion()">Cerrar sesión</button>    </div>  </form></section></div>'
-    var COMPONENTS = [{'name': 'AdminInventario', 'selector': 'app-admin-inventario'},{'name': 'AdminProductos', 'selector': 'app-admin-productos'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'GameCard', 'selector': 'app-game-card'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'MisCompras', 'selector': 'app-mis-compras'},{'name': 'Nav', 'selector': 'app-nav'},{'name': 'Pago', 'selector': 'app-pago'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoDetalle', 'selector': 'app-producto-detalle'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'}];
+    var COMPONENTS = [{'name': 'AdminInventario', 'selector': 'app-admin-inventario'},{'name': 'AdminProductos', 'selector': 'app-admin-productos'},{'name': 'App', 'selector': 'app-root'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'GameCard', 'selector': 'app-game-card'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'MisCompras', 'selector': 'app-mis-compras'},{'name': 'Nav', 'selector': 'app-nav'},{'name': 'NovedadDetalle', 'selector': 'app-novedad-detalle'},{'name': 'Novedades', 'selector': 'app-novedades'},{'name': 'Pago', 'selector': 'app-pago'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'ProductoDetalle', 'selector': 'app-producto-detalle'},{'name': 'Recuperar', 'selector': 'app-recuperar'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Perfil'};
 </script>
