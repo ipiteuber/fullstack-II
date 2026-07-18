@@ -13,6 +13,7 @@ import { AdminProductos } from './pages/admin-productos/admin-productos';
 import { AdminInventario } from './pages/admin-inventario/admin-inventario';
 import { Novedades } from './pages/novedades/novedades';
 import { NovedadDetalle } from './pages/novedad-detalle/novedad-detalle';
+import { authGuard, adminGuard } from './guards';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'Link Start!' },
@@ -23,11 +24,11 @@ export const routes: Routes = [
   { path: 'login', component: Login, title: 'Ingresar - Link Start!' },
   { path: 'registro', component: Registro, title: 'Registro - Link Start!' },
   { path: 'recuperar', component: Recuperar, title: 'Recuperar contraseña - Link Start!' },
-  { path: 'perfil', component: Perfil, title: 'Mi perfil - Link Start!' },
+  { path: 'perfil', component: Perfil, canActivate: [authGuard], title: 'Mi perfil - Link Start!' },
   { path: 'carrito', component: Carrito, title: 'Carrito - Link Start!' },
-  { path: 'pago', component: Pago, title: 'Pago - Link Start!' },
-  { path: 'mis-compras', component: MisCompras, title: 'Mis compras - Link Start!' },
-  { path: 'admin/productos', component: AdminProductos, title: 'Productos - Link Start!' },
-  { path: 'admin/inventario', component: AdminInventario, title: 'Inventario - Link Start!' },
+  { path: 'pago', component: Pago, canActivate: [authGuard], title: 'Pago - Link Start!' },
+  { path: 'mis-compras', component: MisCompras, canActivate: [authGuard], title: 'Mis compras - Link Start!' },
+  { path: 'admin/productos', component: AdminProductos, canActivate: [adminGuard], title: 'Productos - Link Start!' },
+  { path: 'admin/inventario', component: AdminInventario, canActivate: [adminGuard], title: 'Inventario - Link Start!' },
   { path: '**', redirectTo: '' },
 ];
